@@ -1,38 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import FA from 'react-fontawesome';
 import moment from 'moment';
 import momentLocale from 'moment/locale/zh-cn';
-import FA from 'react-fontawesome';
 
-moment.updateLocale("zh-cn",momentLocale);
-const getAlertClass = (severity) => {
-    try{
-        switch(severity){
-            case 'critical':
-            return "table-danger"
-            case 'warning':
-            return "table-warning"
-            default:
-            return ""
-        }
-    }catch(err){
-        return '';
-    }
-}
+import {getAlertClass, getTagListFromLables} from '../../lib/utils';
+
+moment.updateLocale("zh-cn", momentLocale);
+
 
 const AlertItem = ({alert}) => {
     const alertname = alert.labels.alertname;
     const description = alert.annotations.description;
-    let tagList = [];
-    let counter = 0;
-    for(let k in alert.labels){
-        console.log(k)
-        if(counter%3===0){
-            tagList.push(<div></div>)
-        }
-        counter++;
-        tagList.push(<span className="badge badge-info" style={{marginRight:"5px",marginBottom:"5px",marginTop:"5px"}}>{k}={alert.labels[k]}</span>)
-    }
+    const tagList = getTagListFromLables(alert.labels);
     const severity=alert.labels.severity;
     const startAt = moment(alert.startsAt).fromNow();
     const endsAt = moment(alert.endsAt).fromNow();
