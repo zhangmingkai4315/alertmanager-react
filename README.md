@@ -1,2 +1,4 @@
-# alertmanager-react
-Rewrite prometheus alertmanager using react and redux
+### Alertmanager React 
+
+Rewrite promethus alertmanager using react and support more features.
+
