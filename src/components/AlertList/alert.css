@@ -1,0 +1,18 @@
+.alertListGroup {
+    background-color: azure;
+    margin-top: 20px;
+    font-size: .6em;
+}
+
+.alertItem {
+    border-top: 1px solid #c1c1c1;
+}
+
+.alertItem_title {
+    font-size: 15px;
+}
+
+.alertItem_detail {
+    color: gray;
+    font-size: 12px;
+}
