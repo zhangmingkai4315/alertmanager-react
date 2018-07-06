@@ -20,14 +20,16 @@ export const getTagListFromLables = (labels)=>{
     let tagList = [];
     let counter = 0;
     for (let k in labels) {
-        if (counter % 3 === 0) {
-            tagList.push(
-                <div></div>
-            )
-        }
         counter++;
+        if (counter % 4 === 0) {
+            tagList.push(
+                <div key={counter}></div>
+            )
+            continue
+        }
         tagList.push(
             <span
+                key={counter}
                 className="badge badge-info"
                 style={{
                 marginRight: "5px",
@@ -35,6 +37,7 @@ export const getTagListFromLables = (labels)=>{
                 marginTop: "5px"
             }}>{k}={labels[k]}</span>
         )
+
     }
     return tagList
 }

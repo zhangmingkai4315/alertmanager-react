@@ -1,0 +1,17 @@
+.status_box {
+    margin-top: 40px;
+    padding: 20px;
+    margin: auto;
+    width: 90%;
+}
+
+.key {
+    display: inline-block;
+    font-weight: bold;
+    width: 10%;
+    text-transform: capitalize;
+}
+
+.title {
+    font-weight: bold;
+}

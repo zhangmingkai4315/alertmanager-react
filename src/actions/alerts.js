@@ -20,3 +20,21 @@ export function fetchAlertsFail(error){
         payload:error
     }
 }
+
+export function toggleAlertName(){
+    return{
+        type:Types.TOGGLE_ALERT_NAME
+    }
+}
+
+export function toggleAlertStartTime(){
+    return {
+        type:Types.TOGGLE_ALERTS_STARTTIME
+    }
+}
+
+export function toggleAlertSeverity(){
+    return {
+        type: Types.TOGGLE_ALERT_SEVERITY
+    }
+}

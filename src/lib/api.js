@@ -10,6 +10,15 @@ const fetchAlert = () =>{
     });
 }
 
+const fetchStatus= () =>{
+    return axios.get(`${API_URL}/status`,{
+        headers:{
+            'Accept':"application/json"
+        }
+    });
+}
+
 export default {
-    fetchAlert
+    fetchAlert,
+    fetchStatus
 }
