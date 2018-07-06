@@ -1,0 +1,20 @@
+groups:
+- name: test alert 
+  rules:
+  - alert: Fake Instance Down Alert
+    expr: up == 1
+    for: 30s
+    labels:
+      severity: critical
+    annotations:
+      view_link: "https://play.grafana.org/d/000000012/grafana-play-home?panelId=2&fullscreen&edit&orgId=1&from=1530874646634&to=1530881846634"
+      summary: "Instance {{ $labels.instance }} down"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
+  - alert: Fake Instance Down Alert
+    expr: up > 0
+    for: 30s
+    labels:
+      severity: warning
+    annotations:
+      summary: "Instance {{ $labels.instance }} down"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."

@@ -4,9 +4,10 @@ import FA from 'react-fontawesome';
 import moment from 'moment';
 import momentLocale from 'moment/locale/zh-cn';
 import Style from './style.css';
+import config from '../../config.json';
 import {getAlertClass, getTagListFromLables} from '../../lib/utils';
 
-moment.updateLocale("zh-cn", momentLocale);
+moment.updateLocale(config.i18n, momentLocale);
 
 
 const AlertItem = ({alert}) => {
@@ -17,14 +18,14 @@ const AlertItem = ({alert}) => {
     const startAt = moment(alert.startsAt).fromNow();
     const endsAt = moment(alert.endsAt).fromNow();
     let linkInfo = [];
-
+    
     if(alert.generatorURL){
         linkInfo.push(<a href={alert.generatorURL} key="0">
-        <img src="/image/prometheus.png" className={Style.linkImg}/></a>)
+        <img src="/image/prometheus.png" className={Style.linkImg} alt="for prometheus link"/> </a>)
     }
-    if(alert.labels.view_link){
-        linkInfo.push(<a href={alert.labels.view_link} key="1">
-        <img src="/image/grafana.png" className={Style.linkImg}/></a>)
+    if(alert.annotations.view_link){
+        linkInfo.push(<a href={alert.annotations.view_link} key="1">
+        <img src="/image/grafana.png" className={Style.linkImg} alt="for grafana link"/> </a>)
     }
 
     return (

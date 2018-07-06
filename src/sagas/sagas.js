@@ -7,7 +7,9 @@ import API from '../lib/api';
 import { FETCH_ALERTS,
          FETCH_STATUS_DATA,
          FETCH_RECERVER,
-         CHECK_INHIBITED,CHECK_SILENCED,CHANGE_SERCH_TERM} from '../actions/const';
+         SELECT_RECEIVER,
+         CHECK_INHIBITED,
+         CHECK_SILENCED} from '../actions/const';
 import { fetchAlertsSuccess,
         fetchReceiverSuccess,
         fetchReceiverFail,
@@ -16,10 +18,12 @@ import { fetchAlertsSuccess,
         fetchStatusDataSuccess} from '../actions';
 
 export function * fetchAlertsFromAPI() {
+    // first get all alerts(inhibited=false,silienced=false)
     yield takeLatest(FETCH_ALERTS, makeFetchAlerts);
 }
 export function *fetchAlertsUsingSearchBox(){
-    yield throttle(500,[CHECK_INHIBITED,CHECK_SILENCED,CHANGE_SERCH_TERM], makeFetchAlerts);
+    // refresh alert with search infomation
+    yield throttle(500,[SELECT_RECEIVER,CHECK_INHIBITED,CHECK_SILENCED], makeFetchAlerts);
 }
 export function * makeFetchAlerts() {
     try{
