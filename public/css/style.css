@@ -4,6 +4,14 @@ body {
     font-family: sans-serif;
 }
 
+.btn {
+    border-radius: 1px;
+}
+
+.btn-secondary {
+    background-color: #373C42;
+}
+
 .full-size {
     padding: 0;
     margin: 0;
