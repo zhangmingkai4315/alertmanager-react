@@ -13,6 +13,10 @@ import {toggleAlertSeverity,
         removeAlertFilter,
         toggleAlertName} from '../../actions/alerts';
 class Alerts extends Component {
+    state = {
+        searchTerm:'',
+        searchFilterAlerts:[]
+    }
     componentDidMount(){
         this.props.fetchReceiver();
     }
@@ -22,6 +26,26 @@ class Alerts extends Component {
         if(kvstr && kvstr.split("=").length===2){
             // add to redux store alerts filters array
             this.props.addAlertFilter(kvstr)
+        }
+    }
+    componentWillReceiveProps(nextProps){
+        const searchTerm = this.props.search.searchTerm
+        const newSearchTerm = nextProps.search.searchTerm
+        if(newSearchTerm!==this.props.search.searchTerm){
+            let alerts = []
+            const originAlerts = this.props.alerts
+            alerts = originAlerts?originAlerts:[]
+            if(newSearchTerm!==""){
+                alerts = originAlerts.filter(function(t){return JSON.stringify(t).toLowerCase().indexOf(newSearchTerm)!==-1})
+            }
+            this.setState({
+                searchTerm,
+                searchFilterAlerts:alerts
+            })
+        }else{
+            this.setState({
+                searchFilterAlerts:nextProps.alerts
+            }) 
         }
     }
     render() {
@@ -39,7 +63,7 @@ class Alerts extends Component {
                 />
                 <AlertList
                     clickTagHandler={this.clickTagHandler}
-                    alerts={this.props.alerts?this.props.alerts:[]}
+                    alerts={this.state.searchFilterAlerts}
                     toggleAlertSeverity={this.props.toggleAlertSeverity}
                     toggleAlertStartTime={this.props.toggleAlertStartTime}
                     toggleAlertName={this.props.toggleAlertName}
@@ -81,8 +105,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(checkSilenced());
         },
         onChangeSearchTerm:(e)=>{
-            const term = e.target.value.trim();
-            dispatch(changeSearchTerm(term));
+            dispatch(changeSearchTerm(e.target.value.toLowerCase()));
         },
         onSelectReceiver:(receiver)=>{
             dispatch(selectReceiver(receiver));
