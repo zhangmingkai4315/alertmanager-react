@@ -81,3 +81,18 @@ export function selectReceiver(receiver){
         payload: receiver
     }
 }
+
+
+export function addAlertFilter(filter){
+    return{
+        type:Types.ALERT_ADD_FILTER,
+        payload: filter
+    }
+}
+
+export function removeAlertFilter(filter){
+    return{
+        type:Types.ALERT_REMOVE_FILTER,
+        payload: filter
+    }
+}

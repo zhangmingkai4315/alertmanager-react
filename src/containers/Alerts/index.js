@@ -9,12 +9,21 @@ import {toggleAlertSeverity,
         changeSearchTerm,
         selectReceiver,
         toggleAlertStartTime,
+        addAlertFilter,
+        removeAlertFilter,
         toggleAlertName} from '../../actions/alerts';
 class Alerts extends Component {
     componentDidMount(){
         this.props.fetchReceiver();
     }
-
+    // example:
+    // kvstr instance=localhost:9090,job=prometheus
+    clickTagHandler=(kvstr)=>{
+        if(kvstr && kvstr.split("=").length===2){
+            // add to redux store alerts filters array
+            this.props.addAlertFilter(kvstr)
+        }
+    }
     render() {
         return (
             <div>
@@ -26,7 +35,8 @@ class Alerts extends Component {
                     receivers={this.props.receivers}
                     search = {this.props.search}
                 />
-                <AlertList 
+                <AlertList
+                    clickTagHandler={this.clickTagHandler}
                     alerts={this.props.alerts?this.props.alerts:[]}
                     toggleAlertSeverity={this.props.toggleAlertSeverity}
                     toggleAlertStartTime={this.props.toggleAlertStartTime}
@@ -73,6 +83,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         onSelectReceiver:(receiver)=>{
             dispatch(selectReceiver(receiver));
+        },
+        addAlertFilter:(filter)=>{
+            dispatch(addAlertFilter(filter))
+        },
+        removeAlertFilter:(filter)=>{
+            dispatch(removeAlertFilter(filter))
         }
     }
 }

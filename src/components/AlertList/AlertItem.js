@@ -10,10 +10,10 @@ import {getAlertClass, getTagListFromLables} from '../../lib/utils';
 moment.updateLocale(config.i18n, momentLocale);
 
 
-const AlertItem = ({alert}) => {
+const AlertItem = ({alert,clickTagHandler}) => {
     const alertname = alert.labels.alertname;
     const description = alert.annotations.description;
-    const tagList = getTagListFromLables(alert.labels);
+    const tagList = getTagListFromLables(alert.labels,clickTagHandler);
     const severity=alert.labels.severity;
     const startAt = moment(alert.startsAt).fromNow();
     const endsAt = moment(alert.endsAt).fromNow();
@@ -27,7 +27,7 @@ const AlertItem = ({alert}) => {
         linkInfo.push(<a href={alert.annotations.view_link} key="1">
         <img src="/image/grafana.png" className={Style.linkImg} alt="for grafana link"/> </a>)
     }
-
+    
     return (
         <tr className={getAlertClass(severity)}>
             <td>

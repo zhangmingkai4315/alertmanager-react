@@ -16,7 +16,7 @@ export const getAlertClass = (severity) => {
 }
 
 
-export const getTagListFromLables = (labels)=>{
+export const getTagListFromLables = (labels,clickHandler)=>{
     let tagList = [];
     let counter = 0;
     for (let k in labels) {
@@ -27,15 +27,18 @@ export const getTagListFromLables = (labels)=>{
             )
             continue
         }
+        const str = `${k}=${labels[k]}`
         tagList.push(
             <span
                 key={counter}
                 className="badge badge-info"
+                onClick={()=>clickHandler(str)}
                 style={{
                 marginRight: "5px",
                 marginBottom: "5px",
-                marginTop: "5px"
-            }}>{k}={labels[k]}</span>
+                marginTop: "5px",
+                cursor: "pointer"
+            }}>{str}</span>
         )
 
     }

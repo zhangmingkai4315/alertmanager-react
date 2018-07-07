@@ -10,7 +10,9 @@ import {FETCH_ALERTS_SUCCESS,
         CHECK_INHIBITED,
         CHECK_SILENCED,
         CHANGE_SERCH_TERM,
-        SELECT_RECEIVER
+        SELECT_RECEIVER,
+        ALERT_ADD_FILTER,
+        ALERT_REMOVE_FILTER,
         } from '../actions/const'
 
 const initAlertState = { 
@@ -28,7 +30,8 @@ const initAlertState = {
         inhibited:false,
         silenced:false,
         receiver:"All"
-    }
+    },
+    filters:[],
 };
 
 const reducer = (state=initAlertState,action) => {
@@ -62,6 +65,25 @@ const reducer = (state=initAlertState,action) => {
         case SELECT_RECEIVER:
             const searchWithNewReceiver = {...state.search,receiver:action.payload}
             return {...state,search:searchWithNewReceiver}
+
+        case ALERT_ADD_FILTER:
+            const addFilterArray = action.payload.split('=');
+            let conflict = false;
+            const filtersWithConflictDetect = state.filters.map(f=>{
+                if(f.split("=")[0] === addFilterArray[0]){
+                    conflict = true
+                    return f.split("=")[0]+"="+addFilterArray[1]
+                }
+                return f
+            })
+            if(conflict===false && filtersWithConflictDetect.indexOf(action.payload)===-1){
+                return {...state,filters:filtersWithConflictDetect.concat(action.payload)}
+            }
+            return {...state,filters:filtersWithConflictDetect};
+
+        case ALERT_REMOVE_FILTER:
+            const filterAlerts = state.filters.filter(f=>f!==action.payload)
+            return {...state,filter:filterAlerts}            
 
         case TOGGLE_ALERT_NAME:
             let alertsSortAlertName = _.sortBy(state.alerts,[function(o){return o.labels.alertname}])
