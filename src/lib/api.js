@@ -2,12 +2,17 @@ import axios from 'axios';
 import config from '../config.json';
 const API_URL = config.API_URL;
 
-const fetchAlert = ({silenced,inhibited,receiver}) =>{
-    console.log(receiver)
+const fetchAlert = (search,filters) =>{
+    let {silenced,inhibited,receiver} = search;
     if(receiver ==='All'){
         receiver = ""
     }
-    const queryString = `?silenced=${silenced}&inhibited=${inhibited}&receiver=${receiver}`
+    let filterString = '';
+    if(filters.length >= 0 ){
+        filterString+=`&filter={${filters.join(',')}}`;
+    }
+
+    const queryString = `?silenced=${silenced}&inhibited=${inhibited}&receiver=${receiver}${filterString}`
 
     return axios.get(`${API_URL}/alerts${queryString}`,{
         headers:{

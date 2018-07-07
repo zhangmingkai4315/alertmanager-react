@@ -9,6 +9,8 @@ import { FETCH_ALERTS,
          FETCH_RECERVER,
          SELECT_RECEIVER,
          CHECK_INHIBITED,
+         ALERT_ADD_FILTER,
+         ALERT_REMOVE_FILTER,
          CHECK_SILENCED} from '../actions/const';
 import { fetchAlertsSuccess,
         fetchReceiverSuccess,
@@ -23,13 +25,16 @@ export function * fetchAlertsFromAPI() {
 }
 export function *fetchAlertsUsingSearchBox(){
     // refresh alert with search infomation
-    yield throttle(500,[SELECT_RECEIVER,CHECK_INHIBITED,CHECK_SILENCED], makeFetchAlerts);
+    yield throttle(500,[SELECT_RECEIVER,CHECK_INHIBITED,CHECK_SILENCED,ALERT_ADD_FILTER,ALERT_REMOVE_FILTER], makeFetchAlerts);
 }
 export function * makeFetchAlerts() {
     try{
         const getSearchFromStore = (state) => state.alerts.search;
+        const getFiltersFromStore = (state) => state.alerts.filters;
         const search = yield select(getSearchFromStore);
-        const alerts = yield call(API.fetchAlert,search);
+        const filters = yield select(getFiltersFromStore);
+
+        const alerts = yield call(API.fetchAlert,search,filters);
         if (alerts.status &&alerts.status !== 200) {
             throw new Error(`StatusCode=${alerts.status}`)
         }

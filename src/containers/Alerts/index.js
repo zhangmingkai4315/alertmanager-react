@@ -34,6 +34,8 @@ class Alerts extends Component {
                     onChangeSearchTerm = {this.props.onChangeSearchTerm}
                     receivers={this.props.receivers}
                     search = {this.props.search}
+                    filters = {this.props.filters}
+                    removeAlertFilter = {this.props.removeAlertFilter}
                 />
                 <AlertList
                     clickTagHandler={this.clickTagHandler}
@@ -53,7 +55,8 @@ const mapStateToProps = ({alerts})=>{
         alerts:alerts.alerts,
         sort: alerts.sort,
         search: alerts.search,
-        receivers: alerts.receivers
+        receivers: alerts.receivers,
+        filters: alerts.filters
     }
 }
 

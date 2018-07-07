@@ -83,7 +83,7 @@ const reducer = (state=initAlertState,action) => {
 
         case ALERT_REMOVE_FILTER:
             const filterAlerts = state.filters.filter(f=>f!==action.payload)
-            return {...state,filter:filterAlerts}            
+            return {...state,filters:filterAlerts}            
 
         case TOGGLE_ALERT_NAME:
             let alertsSortAlertName = _.sortBy(state.alerts,[function(o){return o.labels.alertname}])

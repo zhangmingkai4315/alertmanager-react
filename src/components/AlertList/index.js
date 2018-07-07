@@ -7,7 +7,7 @@ const AlertList = (props) => {
             <table className="table ">
                 <thead>
                 <tr>
-                    <th className={Styles.sortTableHeader} onClick={()=>props.toggleAlertSeverity()}><i className="fa fa-exclamation-triangle"></i> 级别 {props.sort.serverity?<i className="fa fa-sort-down"></i>:<i className="fa fa-sort-up"></i>}</th>
+                    <th className={Styles.sortTableHeader} onClick={()=>props.toggleAlertSeverity()}>告警级别 {props.sort.serverity?<i className="fa fa-sort-down"></i>:<i className="fa fa-sort-up"></i>}</th>
                     <th className={Styles.sortTableHeader} onClick={()=>props.toggleAlertName()}> 名称 {props.sort.alertname?<i className="fa fa-sort-down"></i>:<i className="fa fa-sort-up"></i>}</th>
                     <th>详细</th>
                     <th><i className="fa fa-bar-chart"></i> 链接</th>

@@ -27,7 +27,7 @@ export const getTagListFromLables = (labels,clickHandler)=>{
             )
             continue
         }
-        const str = `${k}=${labels[k]}`
+        const str = `${k}="${labels[k]}"`
         tagList.push(
             <span
                 key={counter}
