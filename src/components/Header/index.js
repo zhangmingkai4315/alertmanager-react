@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
+import {NavLink,Link} from 'react-router-dom'
 import FA from 'react-fontawesome'
 const Header = () => {
     return (
@@ -21,7 +21,7 @@ const Header = () => {
                         </li> 
                     </ul>
                     <form className="form-inline">
-                        <button className="btn btn-outline-info my-2 my-sm-0"><FA name="bell-slash"/> New Silence</button> 
+                        <Link to="/silences/new" className="btn btn-outline-info my-2 my-sm-0"><FA name="bell-slash"/> New Silence </Link>
                     </form>
                 </div>
             </nav>

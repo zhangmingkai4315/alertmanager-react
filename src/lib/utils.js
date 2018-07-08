@@ -15,8 +15,7 @@ export const getAlertClass = (severity) => {
     }
 }
 
-export const getTagListFromMatchers = (matchers) => {
-    console.log(matchers)
+export const getTagListFromMatchers = (matchers,insert=true) => {
     let tagList = [];
     for (let m=0;m<matchers.length;m++) {
         const str = `${matchers[m]["name"]}="${matchers[m]["value"]}"`
@@ -36,7 +35,7 @@ export const getTagListFromMatchers = (matchers) => {
                     cursor: "pointer"
                 }}>{str}</span>
         )
-        if ((m+1) % 3 === 0) {
+        if (insert && ((m+1) % 3 === 0)) {
             tagList.push(
                 <div key={m*-1}></div>
             )

@@ -1,0 +1,16 @@
+.title{
+  text-align: center;
+  font-size: 100px;
+  font-family:serif;
+  font-weight: bold;
+}
+.description{
+  text-align: center;
+  font-family: serif;
+  color: #000000a1;
+  font-size: 25px;
+}
+.box{
+  background-color: #0000001a;
+  padding: 10px;
+}
