@@ -15,6 +15,35 @@ export const getAlertClass = (severity) => {
     }
 }
 
+export const getTagListFromMatchers = (matchers) => {
+    console.log(matchers)
+    let tagList = [];
+    for (let m=0;m<matchers.length;m++) {
+        const str = `${matchers[m]["name"]}="${matchers[m]["value"]}"`
+        let className = "badge badge-info"
+        if(matchers[m].isRegex){
+            // regex only
+            className="badge badge-primary";
+        }
+        tagList.push(
+            <span
+                key={m}
+                className={className}
+                style={{
+                    marginRight: "5px",
+                    marginBottom: "5px",
+                    marginTop: "5px",
+                    cursor: "pointer"
+                }}>{str}</span>
+        )
+        if ((m+1) % 3 === 0) {
+            tagList.push(
+                <div key={m*-1}></div>
+            )
+        }
+    }
+    return tagList
+}
 
 export const getTagListFromLables = (labels,clickHandler)=>{
     let tagList = [];

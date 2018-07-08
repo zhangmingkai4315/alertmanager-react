@@ -4,7 +4,7 @@ import Styles from './style.css'
 const AlertList = (props) => {
     return (
         <div className={Styles.alertListGroup}>
-            <table className="table ">
+            <table className="table table-hover">
                 <thead>
                 <tr>
                     <th className={Styles.sortTableHeader} onClick={()=>props.toggleAlertSeverity()}>告警级别 {props.sort.serverity?<i className="fa fa-sort-down"></i>:<i className="fa fa-sort-up"></i>}</th>

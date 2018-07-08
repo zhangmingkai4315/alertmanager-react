@@ -1,4 +1,6 @@
-export {fetchStatusData,fetchStatusDataSuccess,fetchStatusDataFail} from './status'
+export {fetchStatusData,
+        fetchStatusDataSuccess,
+        fetchStatusDataFail} from './status'
 
 export {fetchAlerts,
         fetchAlertsFail,
@@ -6,3 +8,8 @@ export {fetchAlerts,
         fetchReceiver,
         fetchReceiverFail,
         fetchReceiverSuccess} from './alerts';
+
+export {fetchSilences,
+        fetchSilencesFail,
+        showSilencesWithStatus,
+        fetchSilencesSuccess} from './silences';

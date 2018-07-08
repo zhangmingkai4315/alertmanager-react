@@ -35,8 +35,27 @@ const fetchReivers= () =>{
         }
     });
 }
+
+const fetchSilences = (search,filters) =>{
+    let {silenced,inhibited} = search;
+    // let filterString = '';
+    // if(filters.length >= 0 ){
+    //     filterString+=`filter={${filters.join(',')}}`;
+    // }
+
+    const queryString = `?silenced=${silenced}&inhibited=${inhibited}`
+
+    return axios.get(`${API_URL}/silences${queryString}`,{
+        headers:{
+            'Accept':"application/json"
+        }
+    });
+}
+
+
 export default {
     fetchAlert,
     fetchStatus,
-    fetchReivers
+    fetchReivers,
+    fetchSilences
 }

@@ -36,6 +36,7 @@ class Alerts extends Component {
             const originAlerts = this.props.alerts
             alerts = originAlerts?originAlerts:[]
             if(newSearchTerm!==""){
+                // maybe search only in name or description
                 alerts = originAlerts.filter(function(t){return JSON.stringify(t).toLowerCase().indexOf(newSearchTerm)!==-1})
             }
             this.setState({

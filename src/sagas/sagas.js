@@ -7,6 +7,7 @@ import API from '../lib/api';
 import { FETCH_ALERTS,
          FETCH_STATUS_DATA,
          FETCH_RECERVER,
+         FETCH_SILENCES,
          SELECT_RECEIVER,
          CHECK_INHIBITED,
          ALERT_ADD_FILTER,
@@ -17,7 +18,9 @@ import { fetchAlertsSuccess,
         fetchReceiverFail,
         fetchAlertsFail,
         fetchStatusDataFail,
-        fetchStatusDataSuccess} from '../actions';
+        fetchStatusDataSuccess,
+        fetchSilencesFail,
+        fetchSilencesSuccess} from '../actions';
 
 export function * fetchAlertsFromAPI() {
     // first get all alerts(inhibited=false,silienced=false)
@@ -75,5 +78,27 @@ export function * makeFetchStatus() {
     }catch(error){
         console.log(error)
         yield put(fetchStatusDataFail(error))
+    }
+}
+
+
+export function * fetchSilencesFromAPI() {
+    yield takeLatest(FETCH_SILENCES, makeFetchSilences);
+}
+export function * makeFetchSilences() {
+    try{
+        const getSearchFromStore = (state) => state.silences.search;
+        const getFiltersFromStore = (state) => state.silences.filters;
+        const search = yield select(getSearchFromStore);
+        const filters = yield select(getFiltersFromStore);
+
+        const silences = yield call(API.fetchSilences,search,filters);
+        if (silences.status &&silences.status !== 200) {
+            throw new Error(`StatusCode=${silences.status}`)
+        }
+        yield put(fetchSilencesSuccess(silences.data.data));
+    }catch(error){
+        console.log(error)
+        yield put(fetchSilencesFail(error))
     }
 }
