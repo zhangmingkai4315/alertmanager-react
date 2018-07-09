@@ -1,18 +1,25 @@
 .detail_box {
-  margin-top: 40px;
-  padding: 20px;
-  margin: auto;
-  width: 90%;
+    margin-top: 40px;
+    padding: 20px;
+    margin: auto;
+    width: 90%;
 }
 
 .key {
-  display: inline-block;
-  font-weight: bold;
-  width: 10%;
-  text-transform: capitalize;
-  font-size: small;
+    display: inline-block;
+    font-weight: bold;
+    width: 10%;
+    text-transform: capitalize;
+    font-size: small;
 }
 
 .title {
-  font-weight: bold;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.custom_btn {
+    float: right;
+    margin: 10px 0;
+    margin-left: 10px;
 }

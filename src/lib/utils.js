@@ -1,5 +1,13 @@
 import React from 'react';
 
+import config from '../config.json';
+import moment from 'moment';
+import momentLocale from 'moment/locale/zh-cn';
+moment.updateLocale(config.i18n, momentLocale);
+
+export const getTimeFromNow = (time) =>{
+    return moment(time).fromNow()
+}
 export const getAlertClass = (severity) => {
     try {
         switch (severity) {

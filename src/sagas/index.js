@@ -4,6 +4,7 @@ import { fetchAlertsFromAPI,
          fetchReceiverFromAPI,
          fetchAlertsUsingSearchBox,
          fetchSilencesFromAPI,
+         fetchSilencesWithIDFromAPI,
          fetchStatusFromAPI} from './sagas';
 
 function* rootSaga(){
@@ -13,6 +14,7 @@ function* rootSaga(){
         fetchStatusFromAPI(),
         fetchAlertsUsingSearchBox(),
         fetchSilencesFromAPI(),
+        fetchSilencesWithIDFromAPI(),
     ])
 };
 

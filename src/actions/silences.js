@@ -27,3 +27,24 @@ export function showSilencesWithStatus(status){
       payload:status
   }
 }
+
+export function fetchSilenceWithID(id){
+    return {
+        type:Types.FETCH_SILENCE_WITH_ID,
+        payload:id
+    }
+}
+
+export function fetchSilenceWithIDSuccess(silence) {
+    return {
+        type: Types.FETCH_SILENCE_WITH_ID_SUCCESS,
+        payload:silence
+    }
+}
+
+export function fetchSilenceWithIDFail(error){
+    return {
+        type:Types.FETCH_SILENCE_WITH_ID_FAIL,
+        payload:error
+    }
+}

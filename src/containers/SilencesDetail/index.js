@@ -1,25 +1,29 @@
 import React, { Component } from 'react'
 import Style from './style.css';
-import moment from 'moment';
-import momentLocale from 'moment/locale/zh-cn';
-import config from '../../config.json';
-import {getTagListFromMatchers} from '../../lib/utils';
+import {getTagListFromMatchers,getTimeFromNow} from '../../lib/utils';
 import  ResouceNotFound from '../../components/widgets/ResouceNotFound';
 import { connect } from 'react-redux';
-moment.updateLocale(config.i18n, momentLocale);
-
+import { fetchSilenceWithID } from '../../actions';
+import Loading from '../../components/widgets/Loading'
 class SilencesDetail extends Component {
   componentDidMount(){
-    // get current silences with api
+    const id = this.props.match.params.id;
+    if(id){
+      this.props.fetchSilenceWithID(id)
+    }
   }
   renderSilence=(silence)=>{
     const tagList = getTagListFromMatchers(silence.matchers||[],false)
-    const startAt = moment(silence.startsAt).fromNow();
-    const updatedAt = moment(silence.updatedAt).fromNow();
-    const endsAt = moment(silence.endsAt).fromNow();
+    const startAt =getTimeFromNow(silence.startsAt);
+    const updatedAt = getTimeFromNow(silence.updatedAt);
+    const endsAt = getTimeFromNow(silence.endsAt);
     return (
       <div>
-        <h2 className={Style.title}>Silence</h2>
+        <p>
+            <span className={Style.title}>Silence</span>
+            <button className={[Style.custom_btn,"btn btn-danger"].join(" ")}>Delete</button>
+            <button className={[Style.custom_btn,"btn btn-info"].join(" ")}>Recreate</button>
+        </p>
         <hr/>
         <p>
           <span className={Style.key}>ID</span>
@@ -57,18 +61,27 @@ class SilencesDetail extends Component {
     )
   }
   render() {
-    const id = this.props.match.params.id;
-    const silences = this.props.silences.filter(s=>s.id===id);
+    if(this.props.loading === true){
+      return <Loading />
+    }
     return (
       <div className={Style.detail_box}>
-        {silences.length!==1?<ResouceNotFound/>:this.renderSilence(silences[0])}
+        {this.props.currentSilence===null?<ResouceNotFound/>:this.renderSilence(this.props.currentSilence)}
       </div>
     )
   }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    silences: state.silences.silences
+    loading: state.silences.loading,
+    currentSilence:state.silences.currentSilence
   }
 }
-export default connect(mapStateToProps,null)(SilencesDetail)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchSilenceWithID: (id) => {
+      dispatch(fetchSilenceWithID(id))
+    }
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(SilencesDetail)

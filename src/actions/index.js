@@ -12,4 +12,7 @@ export {fetchAlerts,
 export {fetchSilences,
         fetchSilencesFail,
         showSilencesWithStatus,
+        fetchSilenceWithID,
+        fetchSilenceWithIDFail,
+        fetchSilenceWithIDSuccess,
         fetchSilencesSuccess} from './silences';

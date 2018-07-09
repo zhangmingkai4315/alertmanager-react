@@ -8,7 +8,7 @@ const fetchAlert = (search,filters) =>{
         receiver = ""
     }
     let filterString = '';
-    if(filters.length >= 0 ){
+    if(filters.length > 0 ){
         filterString+=`&filter={${filters.join(',')}}`;
     }
 
@@ -52,10 +52,18 @@ const fetchSilences = (search,filters) =>{
     });
 }
 
+const fetchSilenceWithID = (id) =>{
+    return axios.get(`${API_URL}/silence/${id}`,{
+        headers:{
+            'Accept':"application/json"
+        }
+    });
+}
 
 export default {
     fetchAlert,
     fetchStatus,
     fetchReivers,
-    fetchSilences
+    fetchSilences,
+    fetchSilenceWithID
 }

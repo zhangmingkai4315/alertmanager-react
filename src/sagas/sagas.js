@@ -12,7 +12,8 @@ import { FETCH_ALERTS,
          CHECK_INHIBITED,
          ALERT_ADD_FILTER,
          ALERT_REMOVE_FILTER,
-         CHECK_SILENCED} from '../actions/const';
+         CHECK_SILENCED,
+         FETCH_SILENCE_WITH_ID} from '../actions/const';
 import { fetchAlertsSuccess,
         fetchReceiverSuccess,
         fetchReceiverFail,
@@ -20,7 +21,9 @@ import { fetchAlertsSuccess,
         fetchStatusDataFail,
         fetchStatusDataSuccess,
         fetchSilencesFail,
-        fetchSilencesSuccess} from '../actions';
+        fetchSilencesSuccess,
+        fetchSilenceWithIDSuccess,
+        fetchSilenceWithIDFail} from '../actions';
 
 export function * fetchAlertsFromAPI() {
     // first get all alerts(inhibited=false,silienced=false)
@@ -100,5 +103,23 @@ export function * makeFetchSilences() {
     }catch(error){
         console.log(error)
         yield put(fetchSilencesFail(error))
+    }
+}
+
+
+export function * fetchSilencesWithIDFromAPI() {
+    yield takeLatest(FETCH_SILENCE_WITH_ID, makeFetchSilenceWithID);
+}
+export function * makeFetchSilenceWithID(action) {
+    try{
+        const silence = yield call(API.fetchSilenceWithID,action.payload);
+        if (silence.status &&silence.status !== 200) {
+            throw new Error(`StatusCode=${silence.status}`)
+        }
+        console.log(silence)
+        yield put(fetchSilenceWithIDSuccess(silence.data.data));
+    }catch(error){
+        console.log(error)
+        yield put(fetchSilenceWithIDFail(error))
     }
 }
