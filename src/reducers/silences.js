@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import {FETCH_SILENCES,
         FETCH_SILENCES_FAIL,
         SHOW_SILENCES_WITH_STATUS,

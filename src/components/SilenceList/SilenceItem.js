@@ -1,17 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import moment from 'moment';
-import momentLocale from 'moment/locale/zh-cn';
-import config from '../../config.json';
-import {getTagListFromMatchers} from '../../lib/utils';
-moment.updateLocale(config.i18n, momentLocale);
-
+import {getTagListFromMatchers,getTimeFromNow} from '../../lib/utils';
 
 const SilenceItem = ({silence}) => {
     const tagList = getTagListFromMatchers(silence.matchers||[])
-    const startAt = moment(silence.startsAt).fromNow();
-    const updatedAt = moment(silence.updatedAt).fromNow();
-    const endsAt = moment(silence.endsAt).fromNow();
+    const startAt = getTimeFromNow(silence.startsAt);
+    const updatedAt = getTimeFromNow(silence.updatedAt);
+    const endsAt = getTimeFromNow(silence.endsAt);
     return (
         <tr>         
             <td>

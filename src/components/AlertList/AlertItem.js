@@ -1,13 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
-import moment from 'moment';
-import momentLocale from 'moment/locale/zh-cn';
 import Style from './style.css';
-import config from '../../config.json';
-import {getAlertClass, getTagListFromLables} from '../../lib/utils';
+import {getAlertClass, getTagListFromLables,getTimeFromNow} from '../../lib/utils';
 
-moment.updateLocale(config.i18n, momentLocale);
 
 
 const AlertItem = ({alert,clickTagHandler}) => {
@@ -15,8 +11,8 @@ const AlertItem = ({alert,clickTagHandler}) => {
     const description = alert.annotations.description;
     const tagList = getTagListFromLables(alert.labels,clickTagHandler);
     const severity=alert.labels.severity;
-    const startAt = moment(alert.startsAt).fromNow();
-    const endsAt = moment(alert.endsAt).fromNow();
+    const startAt = getTimeFromNow(alert.startsAt);
+    const endsAt = getTimeFromNow(alert.endsAt);
     let linkInfo = [];
     
     if(alert.generatorURL){
