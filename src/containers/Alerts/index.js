@@ -12,6 +12,7 @@ import {toggleAlertSeverity,
         addAlertFilter,
         removeAlertFilter,
         toggleAlertName} from '../../actions/alerts';
+import Alert from '../../components/widgets/Alert';
 class Alerts extends Component {
     state = {
         searchTerm:'',
@@ -52,6 +53,7 @@ class Alerts extends Component {
     render() {
         return (
             <div>
+                {this.props.alerts.error?<Alert alert={this.props.alerts.error}/>:null}
                 <SearchBox
                     onSelectReceiver = {this.props.onSelectReceiver}
                     onCheckSilenced= {this.props.onCheckSilenced}

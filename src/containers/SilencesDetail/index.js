@@ -3,14 +3,29 @@ import Style from './style.css';
 import {getTagListFromMatchers,getTimeFromNow} from '../../lib/utils';
 import  ResouceNotFound from '../../components/widgets/ResouceNotFound';
 import { connect } from 'react-redux';
-import { fetchSilenceWithID } from '../../actions';
+import { fetchSilenceWithID,deleteSilenceWithID } from '../../actions';
 import Loading from '../../components/widgets/Loading'
+import ModalBox from '../../components/widgets/Modal';
 class SilencesDetail extends Component {
+  state = {
+    showModal:false
+  }
   componentDidMount(){
     const id = this.props.match.params.id;
     if(id){
       this.props.fetchSilenceWithID(id)
     }
+  }
+  confirmDeleteSilence=()=>{
+    this.setState({showModal:false})
+    this.props.deleteSilenceWithID(this.props.match.params.id)
+  }
+  renderDeleteModal=()=>{
+    return <ModalBox title="配置对话框" 
+                     content="请确认是否设置该Silence为到期状态?"
+                     onConfirm={this.confirmDeleteSilence}
+                     show={this.state.showModal}
+                     onClose={()=>this.setState({showModal:false})}/>
   }
   renderSilence=(silence)=>{
     const tagList = getTagListFromMatchers(silence.matchers||[],false)
@@ -19,10 +34,11 @@ class SilencesDetail extends Component {
     const endsAt = getTimeFromNow(silence.endsAt);
     return (
       <div>
+        {this.state.showModal&&this.renderDeleteModal()}
         <p>
             <span className={Style.title}>Silence</span>
-            <button className={[Style.custom_btn,"btn btn-danger"].join(" ")}>Delete</button>
-            <button className={[Style.custom_btn,"btn btn-info"].join(" ")}>Recreate</button>
+            <button disabled={silence.status.state==='expired'} onClick={()=>this.setState({showModal:true})} className={[Style.custom_btn,"btn btn-danger"].join(" ")}>设置到期</button>
+            <button className={[Style.custom_btn,"btn btn-info"].join(" ")}>重新构建</button>
         </p>
         <hr/>
         <p>
@@ -81,6 +97,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchSilenceWithID: (id) => {
       dispatch(fetchSilenceWithID(id))
+    },
+    deleteSilenceWithID:(id)=>{
+      dispatch(deleteSilenceWithID(id))
     }
   }
 }

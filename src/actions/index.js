@@ -18,5 +18,8 @@ export {fetchSilences,
         fetchSilencesSuccess,
         postNewSilence,
         postNewSilenceFail,
-        postNewSilenceSuccess
+        postNewSilenceSuccess,
+        deleteSilenceWithID,
+        deleteSilenceWithIDFail,
+        deleteSilenceWithIDSuccess
         } from './silences';

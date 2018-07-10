@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import {fetchSilences,showSilencesWithStatus} from '../../actions'
 import SilenceList from '../../components/SilenceList'
+import Alert from '../../components/widgets/Alert';
 class Silences extends Component {
     state = {
         sortedSilences:[]
@@ -13,6 +14,7 @@ class Silences extends Component {
         let silences = this.props.filtedSilences
         return (
         <div>
+            {this.props.silences.error?<Alert alert={this.props.silences.error}/>:null}
             <SilenceList
                 silences={silences}
                 showSilencesWithStatus={this.props.showSilencesWithStatus}

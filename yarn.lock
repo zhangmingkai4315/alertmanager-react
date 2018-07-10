@@ -1433,6 +1433,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+classnames@^2.1.2:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+
 clean-css@4.1.x:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.1.11.tgz#2ecdf145aba38f54740f26cefd0ff3e03e125d6a"
@@ -1858,6 +1862,10 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+date-arithmetic@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/date-arithmetic/-/date-arithmetic-3.1.0.tgz#1fcd03dbd504b9dbee2b9078c85a5f1c7d3cc2d3"
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -2048,6 +2056,10 @@ dom-converter@~0.1:
   resolved "https://registry.yarnpkg.com/dom-converter/-/dom-converter-0.1.4.tgz#a45ef5727b890c9bffe6d7c876e7b19cb0e17f3b"
   dependencies:
     utila "~0.3"
+
+dom-helpers@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.3.1.tgz#fc1a4e15ffdf60ddde03a480a9c0fece821dd4a6"
 
 dom-serializer@0:
   version "0.1.0"
@@ -5425,6 +5437,13 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
+prop-types-extra@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/prop-types-extra/-/prop-types-extra-1.1.0.tgz#32609910ea2dcf190366bacd3490d5a6412a605f"
+  dependencies:
+    react-is "^16.3.2"
+    warning "^3.0.0"
+
 prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
@@ -5553,6 +5572,13 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-component-managers@^3.1.0:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/react-component-managers/-/react-component-managers-3.2.1.tgz#61591c74bda20649a2f4cde2f3336b52f7f69df2"
+  dependencies:
+    prop-types "^15.6.1"
+    spy-on-component "^1.1.0"
+
 react-dev-utils@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-5.0.1.tgz#1f396e161fe44b595db1b186a40067289bf06613"
@@ -5595,6 +5621,10 @@ react-fontawesome@^1.6.1:
   dependencies:
     prop-types "^15.5.6"
 
+react-is@^16.3.2:
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.1.tgz#d624c4650d2c65dbd52c72622bbf389435d9776e"
+
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
@@ -5632,6 +5662,34 @@ react-router@^4.3.1:
     path-to-regexp "^1.7.0"
     prop-types "^15.6.1"
     warning "^4.0.1"
+
+react-transition-group@^2.3.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.4.0.tgz#1d9391fabfd82e016f26fabd1eec329dbd922b5a"
+  dependencies:
+    dom-helpers "^3.3.1"
+    loose-envify "^1.3.1"
+    prop-types "^15.6.2"
+    react-lifecycles-compat "^3.0.4"
+
+react-widgets-moment@^4.0.15:
+  version "4.0.15"
+  resolved "https://registry.yarnpkg.com/react-widgets-moment/-/react-widgets-moment-4.0.15.tgz#6d2be3ab876eb5a14db349bbb81cc0dc5d031b7a"
+
+react-widgets@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/react-widgets/-/react-widgets-4.3.2.tgz#fc094c22da7a686f215e531bfdda2d897379b01d"
+  dependencies:
+    classnames "^2.1.2"
+    date-arithmetic "^3.1.0"
+    dom-helpers "^3.3.1"
+    invariant "^2.2.4"
+    prop-types-extra "^1.0.1"
+    react-component-managers "^3.1.0"
+    react-lifecycles-compat "^3.0.4"
+    react-transition-group "^2.3.0"
+    uncontrollable "^5.0.0"
+    warning "^3.0.0"
 
 react@^16.4.1:
   version "16.4.1"
@@ -6321,6 +6379,10 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
+spy-on-component@^1.1.0:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/spy-on-component/-/spy-on-component-1.1.2.tgz#70cec3a0b87dfb9d5356e288135fd349d138d407"
+
 sshpk@^1.7.0:
   version "1.14.2"
   resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.14.2.tgz#c6fc61648a3d9c4e764fd3fcdf4ea105e492ba98"
@@ -6722,6 +6784,12 @@ uglifyjs-webpack-plugin@^0.4.6:
     source-map "^0.5.6"
     uglify-js "^2.8.29"
     webpack-sources "^1.0.1"
+
+uncontrollable@^5.0.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/uncontrollable/-/uncontrollable-5.1.0.tgz#7e9a1c50ea24e3c78b625e52d21ff3f758c7bd59"
+  dependencies:
+    invariant "^2.2.4"
 
 union-value@^1.0.0:
   version "1.0.0"

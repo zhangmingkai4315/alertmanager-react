@@ -14,7 +14,9 @@ import { FETCH_ALERTS,
          ALERT_REMOVE_FILTER,
          CHECK_SILENCED,
          POST_NEW_SILENCE,
+         DELETE_SILENCE_WITH_ID,
          FETCH_SILENCE_WITH_ID} from '../actions/const';
+         
 import { fetchAlertsSuccess,
         fetchReceiverSuccess,
         fetchReceiverFail,
@@ -25,8 +27,11 @@ import { fetchAlertsSuccess,
         fetchSilencesSuccess,
         fetchSilenceWithIDSuccess,
         fetchSilenceWithIDFail,
+        fetchSilenceWithID,
         postNewSilenceFail,
-        postNewSilenceSuccess
+        postNewSilenceSuccess,
+        deleteSilenceWithIDFail,
+        deleteSilenceWithIDSuccess
         } from '../actions';
 
 export function * fetchAlertsFromAPI() {
@@ -135,5 +140,22 @@ export function * makePostNewSilence(action) {
         yield put(postNewSilenceSuccess(silence.data.data));
     }catch(error){
         yield put(postNewSilenceFail(error))
+    }
+}
+
+
+export function * deleteSilenceWithIDFromAPI() {
+    yield takeLatest(DELETE_SILENCE_WITH_ID, makedeleteSilenceWithID);
+}
+export function * makedeleteSilenceWithID(action) {
+    try{
+        const silence = yield call(API.deleteSilenceWithID,action.payload);
+        if (silence.status &&silence.status !== 200) {
+            throw new Error(`StatusCode=${silence.status}`)
+        }
+        yield put(deleteSilenceWithIDSuccess(silence.data.data));
+        yield put(fetchSilenceWithID(action.payload))
+    }catch(error){
+        yield put(deleteSilenceWithIDFail(error))
     }
 }

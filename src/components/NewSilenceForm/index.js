@@ -77,11 +77,11 @@ class NewSilenceForm extends Component{
                 <div className="form-inline row" key={index}>
                     <Field name={`${matcher}.name`} component={this.renderMatcherItem} placeholder="名称" type="text" />
                     <Field name={`${matcher}.value`} component={this.renderMatcherItem} placeholder="键值" type="text" />
-                    <label className="col-sm-1 col-form-label" htmlFor="isRegex">正则匹配</label>
+                    <label className="col-sm-2 col-form-label" htmlFor="isRegex">使用正则匹配</label>
                     <div className="col-sm-1">
                         <Field name={`${matcher}.isRegex`} component="input" className="form-control form-check-input" type="checkbox" />
                     </div>
-                    <div className="col-sm-2">
+                    <div className="col-sm-1">
                          <button type="submit" 
                          onClick={()=>fields.remove(index)} 
                          className="btn btn-danger">
@@ -147,7 +147,7 @@ class NewSilenceForm extends Component{
                     </div>
                     <div className="col">
                         <div className="form-group row">
-                            <div className="col-sm-2">
+                            <div className="col-sm-6">
                                 <button type="submit" className="btn btn-info" disabled={submitting}>
                                     <i className="fa fa-paper-plane" aria-hidden="true"></i> 提交
                                 </button>

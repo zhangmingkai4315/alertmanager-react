@@ -67,11 +67,20 @@ const postNewSilence = (silence) =>{
         }
     }); 
 }
+
+const deleteSilenceWithID = (id) =>{
+    return axios.delete(`${API_URL}/silence/${id}`,{
+        headers:{
+            'Accept':"application/json"
+        }
+    });
+}
 export default {
     fetchAlert,
     fetchStatus,
     fetchReivers,
     fetchSilences,
     fetchSilenceWithID,
-    postNewSilence
+    postNewSilence,
+    deleteSilenceWithID
 }

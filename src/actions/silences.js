@@ -70,3 +70,25 @@ export function postNewSilenceFail(error){
         payload:error
     }
 }
+
+
+export function deleteSilenceWithID(id){
+    return {
+        type:Types.DELETE_SILENCE_WITH_ID,
+        payload:id
+    }
+}
+
+export function deleteSilenceWithIDSuccess(silence) {
+    return {
+        type: Types.DELETE_SILENCE_WITH_ID_SUCCESS,
+        payload:silence
+    }
+}
+
+export function deleteSilenceWithIDFail(error){
+    return {
+        type:Types.DELETE_SILENCE_WITH_ID_FAIL,
+        payload:error
+    }
+}
