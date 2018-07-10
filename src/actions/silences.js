@@ -48,3 +48,25 @@ export function fetchSilenceWithIDFail(error){
         payload:error
     }
 }
+
+
+export function postNewSilence(silence){
+    return {
+        type:Types.POST_NEW_SILENCE,
+        payload:silence
+    }
+}
+
+export function postNewSilenceSuccess(data) {
+    return {
+        type: Types.POST_NEW_SILENCE_SUCCESS,
+        payload:data
+    }
+}
+
+export function postNewSilenceFail(error){
+    return {
+        type:Types.POST_NEW_SILENCE_FAIL,
+        payload:error
+    }
+}

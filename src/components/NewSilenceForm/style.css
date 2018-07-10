@@ -14,3 +14,10 @@
 .matcherbox {
     padding: 15px 0;
 }
+
+.error {
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+    font-style: italic;
+}

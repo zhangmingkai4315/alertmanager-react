@@ -60,10 +60,18 @@ const fetchSilenceWithID = (id) =>{
     });
 }
 
+const postNewSilence = (silence) =>{
+    return axios.post(`${API_URL}/silences`,silence,{
+        headers:{
+            'Accept':"application/json"
+        }
+    }); 
+}
 export default {
     fetchAlert,
     fetchStatus,
     fetchReivers,
     fetchSilences,
-    fetchSilenceWithID
+    fetchSilenceWithID,
+    postNewSilence
 }

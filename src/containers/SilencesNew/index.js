@@ -1,19 +1,30 @@
 import React, { Component } from 'react'
 import NewSilenceForm from '../../components/NewSilenceForm'
+import { connect } from 'react-redux'
+import { postNewSilence } from '../../actions'
+import { Redirect } from 'react-router-dom'
 class SilencesNew extends Component {
-  submit = values =>{
-    console.log(values);
-  }
   render() {
-    const matchers = [{
-
-    }];
+    const id = this.props.info && this.props.info.create && this.props.info.create.silenceId;
     return (
       <div>
-        <NewSilenceForm onSubmit={this.submit} matchers={matchers}/>
+        {id?<Redirect to={`/silence/${id}`}/>:
+        <NewSilenceForm onSubmit={silence=>this.props.postNewSilence(silence)}/>}
       </div>
     )
   }
 }
 
-export default SilencesNew
+const mapStateToProps = (state) => {
+  return {
+    info: state.silences.info
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    postNewSilence: (silence) => {
+      dispatch(postNewSilence(silence))
+    }
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(SilencesNew)

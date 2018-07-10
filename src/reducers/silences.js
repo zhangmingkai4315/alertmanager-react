@@ -4,7 +4,10 @@ import {FETCH_SILENCES,
         FETCH_SILENCE_WITH_ID,
         FETCH_SILENCE_WITH_ID_SUCCESS,
         FETCH_SILENCE_WITH_ID_FAIL,
-        FETCH_SILENCES_SUCCESS} from '../actions/const'
+        FETCH_SILENCES_SUCCESS,
+        POST_NEW_SILENCE,
+        POST_NEW_SILENCE_FAIL,
+        POST_NEW_SILENCE_SUCCESS} from '../actions/const'
 
 const initSilencesState = { 
     silences:[],
@@ -22,15 +25,18 @@ const initSilencesState = {
         silenced:false
     },
     filtedSilences:[],
+    info:null
 };
 
 const reducer = (state=initSilencesState,action) => {
   switch(action.type){
     case FETCH_SILENCES:
     case FETCH_SILENCE_WITH_ID:
-        return {...state,loading:true,error:""}
+    case POST_NEW_SILENCE:
+        return {...state,loading:true,error:"",info:null}
     case FETCH_SILENCES_FAIL:
     case FETCH_SILENCE_WITH_ID_FAIL:
+    case POST_NEW_SILENCE_FAIL:
         return {...state,loading:false,error:action.payload}
     case FETCH_SILENCES_SUCCESS:
         return {...state,loading:false,silences:action.payload,filtedSilences:action.payload}
@@ -42,6 +48,8 @@ const reducer = (state=initSilencesState,action) => {
         return {...state,filtedSilences,filted:true}
     case FETCH_SILENCE_WITH_ID_SUCCESS:
         return {...state,currentSilence:action.payload,loading:false}
+    case POST_NEW_SILENCE_SUCCESS:
+        return {...state,loading:false,info:{create:action.payload}}
     default:
         return state;
   }

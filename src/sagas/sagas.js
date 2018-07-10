@@ -13,6 +13,7 @@ import { FETCH_ALERTS,
          ALERT_ADD_FILTER,
          ALERT_REMOVE_FILTER,
          CHECK_SILENCED,
+         POST_NEW_SILENCE,
          FETCH_SILENCE_WITH_ID} from '../actions/const';
 import { fetchAlertsSuccess,
         fetchReceiverSuccess,
@@ -23,7 +24,10 @@ import { fetchAlertsSuccess,
         fetchSilencesFail,
         fetchSilencesSuccess,
         fetchSilenceWithIDSuccess,
-        fetchSilenceWithIDFail} from '../actions';
+        fetchSilenceWithIDFail,
+        postNewSilenceFail,
+        postNewSilenceSuccess
+        } from '../actions';
 
 export function * fetchAlertsFromAPI() {
     // first get all alerts(inhibited=false,silienced=false)
@@ -46,7 +50,6 @@ export function * makeFetchAlerts() {
         }
         yield put(fetchAlertsSuccess(alerts.data.data));
     }catch(error){
-        console.log(error)
         yield put(fetchAlertsFail(error))
     }
 }
@@ -79,7 +82,6 @@ export function * makeFetchStatus() {
         }
         yield put(fetchStatusDataSuccess(status.data.data));
     }catch(error){
-        console.log(error)
         yield put(fetchStatusDataFail(error))
     }
 }
@@ -101,7 +103,6 @@ export function * makeFetchSilences() {
         }
         yield put(fetchSilencesSuccess(silences.data.data));
     }catch(error){
-        console.log(error)
         yield put(fetchSilencesFail(error))
     }
 }
@@ -116,10 +117,23 @@ export function * makeFetchSilenceWithID(action) {
         if (silence.status &&silence.status !== 200) {
             throw new Error(`StatusCode=${silence.status}`)
         }
-        console.log(silence)
         yield put(fetchSilenceWithIDSuccess(silence.data.data));
     }catch(error){
-        console.log(error)
         yield put(fetchSilenceWithIDFail(error))
+    }
+}
+
+export function * postNewSilence() {
+    yield takeLatest(POST_NEW_SILENCE, makePostNewSilence);
+}
+export function * makePostNewSilence(action) {
+    try{
+        const silence = yield call(API.postNewSilence,action.payload);
+        if (silence.status &&silence.status !== 200) {
+            throw new Error(`StatusCode=${silence.status}`)
+        }
+        yield put(postNewSilenceSuccess(silence.data.data));
+    }catch(error){
+        yield put(postNewSilenceFail(error))
     }
 }
