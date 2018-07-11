@@ -35,6 +35,17 @@ const initAlertState = {
     filters:[],
 };
 
+function sortByStartTime(alerts,state,alwaysDesc){
+    let alertsSortStartTime = _.sortBy(alerts,[function(o){return o.startsAt}])
+    if(alwaysDesc){
+        return {...state,loading:false,alerts:_.reverse(alertsSortStartTime)}
+    }
+    let sortStartTime = {...state.sort,alert_starttime:!state.sort.alert_starttime}
+    if( !sortStartTime.alert_starttime){
+        alertsSortStartTime = _.reverse(alertsSortStartTime)
+    }
+    return {...state,alerts:alertsSortStartTime,loading:false,sort:sortStartTime}
+}
 const reducer = (state=initAlertState,action) => {
     switch(action.type){
         case FETCH_ALERTS:
@@ -43,7 +54,9 @@ const reducer = (state=initAlertState,action) => {
             return {...state,loading:false,error:action.payload}
         case FETCH_ALERTS_SUCCESS:
         case FETCH_SILENCE_WITH_AFFECTED_ALERTS_SUCCESS:
-            return {...state,loading:false,alerts:action.payload}
+            return sortByStartTime(action.payload,state,true)         
+        case TOGGLE_ALERTS_STARTTIME:
+            return sortByStartTime(state.alerts,state)
 
         case FETCH_RECERVER_FAIL:
             return {...state,loading:false,error:action.payload}
@@ -103,13 +116,6 @@ const reducer = (state=initAlertState,action) => {
             }
             return {...state,alerts:alertsSortSeverity,sort:sortSeverity}
 
-        case TOGGLE_ALERTS_STARTTIME:
-            let alertsSortStartTime = _.sortBy(state.alerts,[function(o){return o.startsAt}])
-            let sortStartTime = {...state.sort,alert_starttime:!state.sort.alert_starttime}
-            if(!sortStartTime.alert_starttime){
-                alertsSortStartTime = _.reverse(alertsSortStartTime)
-            }
-            return {...state,alerts:alertsSortStartTime,sort:sortStartTime}
         default:
             return state;
     }

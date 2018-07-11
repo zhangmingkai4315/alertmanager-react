@@ -1,0 +1,10 @@
+.custom {
+    float: right;
+    width: 20%;
+    margin-bottom: 10px;
+    font-size: small;
+}
+
+.enabled {
+    border: 1px solid #373c42;
+}

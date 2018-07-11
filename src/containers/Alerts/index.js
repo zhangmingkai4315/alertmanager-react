@@ -11,21 +11,22 @@ import {toggleAlertSeverity,
         toggleAlertStartTime,
         addAlertFilter,
         removeAlertFilter,
+        fetchAlerts,
         toggleAlertName} from '../../actions/alerts';
-import Alert from '../../components/widgets/Alert';
+import Widgets from '../../components/widgets';
+const {Alert,AutoRefresh} = Widgets;
+
 class Alerts extends Component {
     state = {
         searchTerm:'',
         searchFilterAlerts:[]
     }
     componentDidMount(){
+        this.props.fetchAlerts();
         this.props.fetchReceiver();
     }
-    // example:
-    // kvstr instance=localhost:9090,job=prometheus
     clickTagHandler=(kvstr)=>{
         if(kvstr && kvstr.split("=").length===2){
-            // add to redux store alerts filters array
             this.props.addAlertFilter(kvstr)
         }
     }
@@ -63,7 +64,12 @@ class Alerts extends Component {
                     filters = {this.props.filters}
                     removeAlertFilter = {this.props.removeAlertFilter}
                 />
+                <div className="right">
+                    <AutoRefresh onRefresh={this.props.fetchAlerts} />
+                </div>
+                
                 <AlertList
+                    loading={this.props.loading}
                     clickTagHandler={this.clickTagHandler}
                     alerts={this.state.searchFilterAlerts}
                     toggleAlertSeverity={this.props.toggleAlertSeverity}
@@ -82,12 +88,16 @@ const mapStateToProps = ({alerts})=>{
         sort: alerts.sort,
         search: alerts.search,
         receivers: alerts.receivers,
-        filters: alerts.filters
+        filters: alerts.filters,
+        loading: alerts.loading
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        fetchAlerts:()=>{
+            dispatch(fetchAlerts())
+        },
         fetchReceiver:()=>{
             dispatch(fetchReceiver());
         },

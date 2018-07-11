@@ -133,7 +133,6 @@ export function * makeFetchSilenceWithID(action) {
         if (alerts.status &&alerts.status !== 200) {
             throw new Error(`StatusCode=${alerts.status}`)
         }
-        console.log(alerts.data)
         yield put(fetchSilenceWithAffectedAlerts(alerts.data.data));
     }catch(error){
         yield put(fetchSilenceWithIDFail(error))

@@ -1,6 +1,8 @@
 import React from 'react'
 import AlertItem from './AlertItem';
 import Styles from './style.css'
+import Widgets from '../../components/widgets';
+const { Loading } = Widgets;
 const AlertList = (props) => {
     return (
         <div className={Styles.alertListGroup}>
@@ -29,6 +31,7 @@ const AlertList = (props) => {
                 {props.alerts.map((alert,i)=><AlertItem alert={alert} clickTagHandler={props.clickTagHandler} key={alert.fingerprint}/>)}
                 </tbody>
             </table>
+            {props.loading?<Loading/>:null}
         </div>
     )
 }

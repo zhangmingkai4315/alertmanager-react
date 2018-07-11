@@ -4,7 +4,6 @@ import createSagaMiddleware from 'redux-saga'
 import reducers from '../reducers'
 import rootSagas from '../sagas';
 
-import {fetchAlerts} from '../actions/alerts'
 const sagaMiddleware = createSagaMiddleware()
 const middleware = [sagaMiddleware];
 let composeEnhancers = compose;
@@ -20,6 +19,5 @@ const enhancer = composeEnhancers(applyMiddleware(...middleware));
 
 const store = createStore(reducers, {}, enhancer);
 sagaMiddleware.run(rootSagas);
-store.dispatch(fetchAlerts());
 
 export default store;

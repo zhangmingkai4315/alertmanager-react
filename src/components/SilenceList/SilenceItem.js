@@ -34,7 +34,7 @@ const SilenceItem = ({silence}) => {
                 <Link 
                   to={`/silence/${silence.id}`}
 
-                    ><i className="fa fa-edit fa-2x"></i></Link>
+                    ><i className="fa fa-pencil fa-2x"></i></Link>
             </td>
         </tr>
     )

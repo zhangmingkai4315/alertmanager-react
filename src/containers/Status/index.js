@@ -3,18 +3,20 @@ import {connect} from 'react-redux';
 import { fetchStatusData } from '../../actions';
 import Style from './style.css'
 import moment from 'moment';
+import Widgets from '../../components/widgets';
+const {Alert,Loading} = Widgets;
 class Status extends Component {
     componentDidMount(){
         this.props.fetchStatusData();
     }
     render() {
         const {status,loading, error} = this.props.status
-        if(loading || Object.keys(status).length===0){
-            return (<div>Loading...</div>)
+        if(loading){
+            return (<Loading/>)
         }
 
         if(error){
-            return (<div>{error}</div>)
+            return (<Alert alert={error}/>)
         }
         let versionInfo = []
         for(var infokey in status.versionInfo){
