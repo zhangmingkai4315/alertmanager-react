@@ -16,6 +16,7 @@ const Routes = () =>{
             <Route path="/silences" exact component={Layout({Content:Silences})}/>
             <Route path="/silence/:id" exact component={Layout({Content:SilencesDetail})}/>
             <Route path="/silences/new" exact component={Layout({Content:SilencesNew})}/>
+            <Route path="/silences/:id/edit" exact component={Layout({Content:SilencesNew})}/>
             <Route path="/status" exact component={Layout({Content:Status})}/>
             <Route path="*" component={Layout({Content:Alerts})}/>
         </Switch>

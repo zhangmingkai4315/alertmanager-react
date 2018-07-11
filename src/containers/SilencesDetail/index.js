@@ -43,10 +43,13 @@ class SilencesDetail extends Component {
         {this.state.showModal&&this.renderDeleteModal()}
         <p className={Style.title_box}>
             <span className={Style.title}>Silence</span>
-            <button disabled={silence.status.state==='expired'} onClick={()=>this.setState({showModal:true})} className={[Style.custom_btn,"btn btn-danger"].join(" ")}>设置到期</button>
-            <Link to={{pathname:"/silences/new",matchers:silence.matchers}} className={[Style.custom_btn,"btn btn-info"].join(" ")}>
-              重新构建
-            </Link>
+            <button disabled={silence.status.state==='expired'} onClick={()=>this.setState({showModal:true})} className={[Style.custom_btn,"btn btn-danger"].join(" ")}>
+            <i className="fa fa-calendar-times-o" aria-hidden="true"></i> 设置到期</button>
+            {silence.status.state==='expired'?<Link to={{pathname:"/silences/new",matchers:silence.matchers}} className={[Style.custom_btn,"btn btn-info"].join(" ")}>
+              <i className="fa fa-refresh" aria-hidden="true"></i> 重新构建
+            </Link>:<Link to={{pathname:`/silences/${silence.id}/edit`,silence}} className={[Style.custom_btn,"btn btn-info"].join(" ")}>
+              <i className="fa fa-pencil-square-o" aria-hidden="true"></i> 编辑
+            </Link>}
         </p>
         <hr/>
         <p>

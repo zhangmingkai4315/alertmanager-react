@@ -21,5 +21,4 @@ function* rootSaga(){
         deleteSilenceWithIDFromAPI()
     ])
 };
-
 export default rootSaga;

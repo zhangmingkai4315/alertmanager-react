@@ -11,7 +11,7 @@ class Status extends Component {
     }
     render() {
         const {status,loading, error} = this.props.status
-        if(loading){
+        if(loading || Object.keys(status).length===0){
             return (<Loading/>)
         }
 

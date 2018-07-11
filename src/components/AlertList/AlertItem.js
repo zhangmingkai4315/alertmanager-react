@@ -25,8 +25,8 @@ const AlertItem = ({alert,clickTagHandler}) => {
     }
     
     return (
-        <tr className={getAlertClass(severity)}>
-            <td>
+        <tr >
+            <td className={getAlertClass(severity)}>
                 {severity}
             </td>
              <td>

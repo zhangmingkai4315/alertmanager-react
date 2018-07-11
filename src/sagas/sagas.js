@@ -148,6 +148,7 @@ export function * makePostNewSilence(action) {
         if (silence.status &&silence.status !== 200) {
             throw new Error(`StatusCode=${silence.status}`)
         }
+        yield call([localStorage,'setItem'],'createdBy',action.payload.createdBy)
         yield put(postNewSilenceSuccess(silence.data.data));
     }catch(error){
         yield put(postNewSilenceFail(error))

@@ -62,13 +62,13 @@ class NewSilenceForm extends Component{
             </div>
         )
     }
-    renderMatchers = ({fields,meta:{error,submitFailed}}) =>{
+    renderMatchers = ({fields,meta:{error}}) =>{
         return (
         <div className={Style.matcherbox}>
             <div className="form-group row">
                 <div className="col-sm-2">
                     <button className="btn btn-info" onClick={()=>fields.push()}>
-                        <i className="fa fa-plus" aria-hidden="true"></i>新增matcher
+                        <i className="fa fa-plus" aria-hidden="true"></i> 新增matcher
                     </button>
                 </div>
                 <span className={Style.error}>{error}</span>
@@ -108,24 +108,29 @@ class NewSilenceForm extends Component{
         let initialValues={
             startsAt:new Date(moment(new Date())).toISOString(),
             duration:'2h',
-            endsAt:new Date(moment(new Date()).add(2,'hours')).toISOString()
+            endsAt:new Date(moment(new Date()).add(2,'hours')).toISOString(),
+            createdBy: localStorage.getItem("createdBy") || ""
         }
-        if(this.props.location && this.props.location.matchers){
-            const matchers = this.props.location.matchers
-            initialValues.matchers = []
-            if(Array.isArray(matchers)){
-                initialValues.matchers = initialValues.matchers.concat(matchers)
-            }else{
-                for(let k in matchers){
-                    initialValues.matchers.push({
-                        name:k,
-                        value:matchers[k],
-                        isRegex:false
-                    })
+        if(this.props.location){
+            if(this.props.location.silence){
+                initialValues = this.props.location.silence;
+            }else if(this.props.location.matchers){
+                const matchers = this.props.location.matchers
+                initialValues.matchers = []
+                if(Array.isArray(matchers)){
+                    initialValues.matchers = initialValues.matchers.concat(matchers)
+                }else{
+                    for(let k in matchers){
+                        initialValues.matchers.push({
+                            name:k,
+                            value:matchers[k],
+                            isRegex:false
+                        })
+                    }
                 }
             }
         }
-        console.log(initialValues)
+
         initialize(initialValues,false)
     }
     render(){
