@@ -51,7 +51,7 @@ class NewSilenceForm extends Component{
                 <div className="col-sm-12">
                     <input {...input} 
                             name={name} 
-                            style={{"width":"100%"}} 
+                            style={{"width":"100%","margin-top": "10px"}} 
                             placeholder={placeholder} 
                             className="form-control" 
                             type={type} />
@@ -103,9 +103,34 @@ class NewSilenceForm extends Component{
     handleEndTimeChange = (e,value)=>{
         this.props.change("duration",getOffsetFromTimes(this.state.startsAt,value));
     }
-
+    componentDidMount(){
+        const {initialize} = this.props;
+        let initialValues={
+            startsAt:new Date(moment(new Date())).toISOString(),
+            duration:'2h',
+            endsAt:new Date(moment(new Date()).add(2,'hours')).toISOString()
+        }
+        if(this.props.location && this.props.location.matchers){
+            const matchers = this.props.location.matchers
+            initialValues.matchers = []
+            if(Array.isArray(matchers)){
+                initialValues.matchers = initialValues.matchers.concat(matchers)
+            }else{
+                for(let k in matchers){
+                    initialValues.matchers.push({
+                        name:k,
+                        value:matchers[k],
+                        isRegex:false
+                    })
+                }
+            }
+        }
+        console.log(initialValues)
+        initialize(initialValues,false)
+    }
     render(){
-        const { handleSubmit,pristine,reset,submitting } = this.props
+        const { handleSubmit,pristine,reset,submitting} = this.props
+
         return (
             <div className={Style.silence_box}>
                 <form onSubmit={handleSubmit}>
@@ -166,14 +191,7 @@ class NewSilenceForm extends Component{
 NewSilenceForm = reduxForm({
     form:"new_silence",
     validate,
-    initialValues:{
-        startsAt:new Date(moment(new Date())).toISOString(),
-        duration:'2h',
-        endsAt:new Date(moment(new Date()).add(2,'hours')).toISOString(),
-        matchers: [
-            {isRegex:false}
-        ]
-    }
+    
 })(NewSilenceForm)
 
 export default NewSilenceForm

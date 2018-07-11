@@ -9,7 +9,7 @@ class SilencesNew extends Component {
     return (
       <div>
         {id?<Redirect to={`/silence/${id}`}/>:
-        <NewSilenceForm onSubmit={silence=>this.props.postNewSilence(silence)}/>}
+        <NewSilenceForm location={this.props.location} onSubmit={silence=>this.props.postNewSilence(silence)}/>}
       </div>
     )
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom';
 import Style from './style.css';
 import {getTagListFromMatchers,getTimeFromNow} from '../../lib/utils';
 import  ResouceNotFound from '../../components/widgets/ResouceNotFound';
@@ -29,7 +30,7 @@ class SilencesDetail extends Component {
   }
   renderSilence=(silence)=>{
     const tagList = getTagListFromMatchers(silence.matchers||[],false)
-    const startAt =getTimeFromNow(silence.startsAt);
+    const startAt = getTimeFromNow(silence.startsAt);
     const updatedAt = getTimeFromNow(silence.updatedAt);
     const endsAt = getTimeFromNow(silence.endsAt);
     return (
@@ -38,7 +39,9 @@ class SilencesDetail extends Component {
         <p>
             <span className={Style.title}>Silence</span>
             <button disabled={silence.status.state==='expired'} onClick={()=>this.setState({showModal:true})} className={[Style.custom_btn,"btn btn-danger"].join(" ")}>设置到期</button>
-            <button className={[Style.custom_btn,"btn btn-info"].join(" ")}>重新构建</button>
+            <Link to={{pathname:"/silences/new",matchers:silence.matchers}} className={[Style.custom_btn,"btn btn-info"].join(" ")}>
+              重新构建
+            </Link>
         </p>
         <hr/>
         <p>

@@ -44,7 +44,7 @@ const AlertItem = ({alert,clickTagHandler}) => {
                 {endsAt}
             </td>
             <td>
-                <Link to="/" className="btn btn-info" style={{ fontSize:".5em"}}>
+                <Link to={{pathname:"/silences/new",matchers:alert.labels}} className="btn btn-info" style={{ fontSize:".5em"}}>
                    <FA name="bell-slash-o"/> 暂停告警
                 </Link>
             </td>
