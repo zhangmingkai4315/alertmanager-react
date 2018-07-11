@@ -18,6 +18,11 @@
     font-size: 40px;
 }
 
+.title_box {
+    border-bottom: 1px solid #00000038;
+    padding-top: 10px;
+}
+
 .custom_btn {
     float: right;
     margin: 10px 0;

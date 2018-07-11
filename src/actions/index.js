@@ -7,6 +7,9 @@ export {fetchAlerts,
         fetchAlertsSuccess,
         fetchReceiver,
         fetchReceiverFail,
+        toggleAlertName,
+        toggleAlertSeverity,
+        toggleAlertStartTime,
         fetchReceiverSuccess} from './alerts';
 
 export {fetchSilences,
@@ -21,5 +24,6 @@ export {fetchSilences,
         postNewSilenceSuccess,
         deleteSilenceWithID,
         deleteSilenceWithIDFail,
-        deleteSilenceWithIDSuccess
+        deleteSilenceWithIDSuccess,
+        fetchSilenceWithAffectedAlerts,
         } from './silences';

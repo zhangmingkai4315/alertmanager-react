@@ -92,3 +92,10 @@ export function deleteSilenceWithIDFail(error){
         payload:error
     }
 }
+
+export function fetchSilenceWithAffectedAlerts(affectedAlerts){
+    return {
+        type: Types.FETCH_SILENCE_WITH_AFFECTED_ALERTS_SUCCESS,
+        payload: affectedAlerts
+    }
+}

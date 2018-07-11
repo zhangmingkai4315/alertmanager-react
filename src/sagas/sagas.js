@@ -31,7 +31,8 @@ import { fetchAlertsSuccess,
         postNewSilenceFail,
         postNewSilenceSuccess,
         deleteSilenceWithIDFail,
-        deleteSilenceWithIDSuccess
+        deleteSilenceWithIDSuccess,
+        fetchSilenceWithAffectedAlerts
         } from '../actions';
 
 export function * fetchAlertsFromAPI() {
@@ -121,8 +122,19 @@ export function * makeFetchSilenceWithID(action) {
         const silence = yield call(API.fetchSilenceWithID,action.payload);
         if (silence.status &&silence.status !== 200) {
             throw new Error(`StatusCode=${silence.status}`)
-        }
+        } 
         yield put(fetchSilenceWithIDSuccess(silence.data.data));
+
+        const matchers = silence.data.data.matchers;
+        const search = {silenced:true,inhibited:false,receiver:""}
+        const filters = matchers.map(m=>`${m.name}=${m.value}`)
+        const alerts = yield call(API.fetchAlert,search,filters);
+
+        if (alerts.status &&alerts.status !== 200) {
+            throw new Error(`StatusCode=${alerts.status}`)
+        }
+        console.log(alerts.data)
+        yield put(fetchSilenceWithAffectedAlerts(alerts.data.data));
     }catch(error){
         yield put(fetchSilenceWithIDFail(error))
     }

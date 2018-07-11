@@ -51,7 +51,7 @@ class NewSilenceForm extends Component{
                 <div className="col-sm-12">
                     <input {...input} 
                             name={name} 
-                            style={{"width":"100%","margin-top": "10px"}} 
+                            style={{"width":"100%","marginTop": "10px"}} 
                             placeholder={placeholder} 
                             className="form-control" 
                             type={type} />

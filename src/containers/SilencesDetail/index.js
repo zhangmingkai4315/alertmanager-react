@@ -4,9 +4,14 @@ import Style from './style.css';
 import {getTagListFromMatchers,getTimeFromNow} from '../../lib/utils';
 import  ResouceNotFound from '../../components/widgets/ResouceNotFound';
 import { connect } from 'react-redux';
-import { fetchSilenceWithID,deleteSilenceWithID } from '../../actions';
+import { fetchSilenceWithID,
+        toggleAlertName,
+        toggleAlertSeverity,
+        toggleAlertStartTime,
+        deleteSilenceWithID } from '../../actions';
 import Loading from '../../components/widgets/Loading'
 import ModalBox from '../../components/widgets/Modal';
+import AlertList from '../../components/AlertList';
 class SilencesDetail extends Component {
   state = {
     showModal:false
@@ -36,7 +41,7 @@ class SilencesDetail extends Component {
     return (
       <div>
         {this.state.showModal&&this.renderDeleteModal()}
-        <p>
+        <p className={Style.title_box}>
             <span className={Style.title}>Silence</span>
             <button disabled={silence.status.state==='expired'} onClick={()=>this.setState({showModal:true})} className={[Style.custom_btn,"btn btn-danger"].join(" ")}>设置到期</button>
             <Link to={{pathname:"/silences/new",matchers:silence.matchers}} className={[Style.custom_btn,"btn btn-info"].join(" ")}>
@@ -76,9 +81,21 @@ class SilencesDetail extends Component {
           <span className={Style.key}>Matchers</span>
           <span className={Style.value}>{tagList}</span>
         </p>
+        <p className={Style.title_box}>
+            <span className={Style.title}>Affected alerts</span>
+        </p>
+        <AlertList
+                    clickTagHandler={()=>{}}
+                    alerts={this.props.alerts}
+                    toggleAlertSeverity={this.props.toggleAlertSeverity}
+                    toggleAlertStartTime={this.props.toggleAlertStartTime}
+                    toggleAlertName={this.props.toggleAlertName}
+                    sort={this.props.sort}
+                />
       </div>
     )
   }
+
   render() {
     if(this.props.loading === true){
       return <Loading />
@@ -87,17 +104,29 @@ class SilencesDetail extends Component {
       <div className={Style.detail_box}>
         {this.props.currentSilence===null?<ResouceNotFound/>:this.renderSilence(this.props.currentSilence)}
       </div>
+
     )
   }
 }
 const mapStateToProps = (state) => {
   return {
     loading: state.silences.loading,
-    currentSilence:state.silences.currentSilence
+    currentSilence:state.silences.currentSilence,
+    alerts:state.alerts.alerts,
+    sort:state.alerts.sort
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
+    toggleAlertSeverity: () => {
+        dispatch(toggleAlertSeverity());
+    },
+    toggleAlertStartTime: ()=>{
+        dispatch(toggleAlertStartTime());
+    },
+    toggleAlertName:()=>{
+        dispatch(toggleAlertName());
+    },
     fetchSilenceWithID: (id) => {
       dispatch(fetchSilenceWithID(id))
     },

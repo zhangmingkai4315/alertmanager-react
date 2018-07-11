@@ -13,6 +13,7 @@ import {FETCH_ALERTS_SUCCESS,
         SELECT_RECEIVER,
         ALERT_ADD_FILTER,
         ALERT_REMOVE_FILTER,
+        FETCH_SILENCE_WITH_AFFECTED_ALERTS_SUCCESS
         } from '../actions/const'
 
 const initAlertState = { 
@@ -41,6 +42,7 @@ const reducer = (state=initAlertState,action) => {
         case FETCH_ALERTS_FAIL:
             return {...state,loading:false,error:action.payload}
         case FETCH_ALERTS_SUCCESS:
+        case FETCH_SILENCE_WITH_AFFECTED_ALERTS_SUCCESS:
             return {...state,loading:false,alerts:action.payload}
 
         case FETCH_RECERVER_FAIL:
