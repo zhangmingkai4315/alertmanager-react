@@ -1,8 +1,10 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import AlertItem from './AlertItem';
 import Styles from './style.css'
 import Widgets from '../../components/widgets';
 const { Loading } = Widgets;
+
 const AlertList = (props) => {
     return (
         <div className={Styles.alertListGroup}>
@@ -11,7 +13,7 @@ const AlertList = (props) => {
                 <tr>
                     <th className={Styles.sortTableHeader} 
                         onClick={()=>props.toggleAlertSeverity()}>
-                        告警级别 
+                        <FormattedMessage id="alerts.level"/>
                         {props.sort!==false &&(props.sort.serverity?<i className="fa fa-sort-down"></i>:<i className="fa fa-sort-up"></i>)}</th>
                     <th className={Styles.sortTableHeader}
                         onClick={()=>props.toggleAlertName()}> 
