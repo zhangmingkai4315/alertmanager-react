@@ -40,19 +40,19 @@ class SilencesDetail extends Component {
     const updatedAt = getTimeFromNow(silence.updatedAt);
     const endsAt = getTimeFromNow(silence.endsAt);
     return (
-      <div>
+      <div className="">
         {this.state.showModal&&this.renderDeleteModal()}
-        <p className={Style.title_box}>
-            <span className={Style.title}>Silence</span>
-            <button disabled={silence.status.state==='expired'} onClick={()=>this.setState({showModal:true})} className={[Style.custom_btn,"btn btn-danger"].join(" ")}>
-            <i className="fa fa-calendar-times-o" aria-hidden="true"></i> <FormattedMessage id=""/></button>
+        <button disabled={silence.status.state==='expired'} onClick={()=>this.setState({showModal:true})} className={[Style.custom_btn,"btn btn-danger"].join(" ")}>
+            <i className="fa fa-calendar-times-o" aria-hidden="true"></i> <FormattedMessage id="silences.detail.expiredalert"/></button>
             {silence.status.state==='expired'?<Link to={{pathname:"/silences/new",matchers:silence.matchers}} className={[Style.custom_btn,"btn btn-info"].join(" ")}>
               <i className="fa fa-refresh" aria-hidden="true"></i>  <FormattedMessage id="silences.detail.recreate"/>
             </Link>:<Link to={{pathname:`/silences/${silence.id}/edit`,silence}} className={[Style.custom_btn,"btn btn-info"].join(" ")}>
               <i className="fa fa-pencil-square-o" aria-hidden="true"></i> <FormattedMessage id="silences.detail.edit"/>
             </Link>}
+        <p className={Style.title_box}>
+            <span className={Style.title}><FormattedMessage id="silences.detail.silence"/></span>    
         </p>
-        <hr/>
+
         <p>
           <span className={Style.key}>ID</span>
           <span className={Style.value}>{silence.id}</span>

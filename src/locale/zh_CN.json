@@ -39,6 +39,7 @@
     "silences.show_pending": "即将生效",
     "silences.show_expired": "已过期",
 
+    "silences.detail.silence": "屏蔽信息",
     "silences.detail.affected_alerts": "已屏蔽告警",
     "silences.detail.recreate": "重新配置",
     "silences.detail.expiredalert": "设置到期",

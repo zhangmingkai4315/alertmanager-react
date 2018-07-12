@@ -5,6 +5,7 @@ import { fetchStatusData } from '../../actions';
 import Style from './style.css'
 import moment from 'moment';
 import Widgets from '../../components/widgets';
+import {getTimeFromNow} from '../../lib/utils'
 const {Alert,Loading} = Widgets;
 class Status extends Component {
     componentDidMount(){
@@ -28,7 +29,7 @@ class Status extends Component {
         return (
             <div className={Style.status_box}>
                  <h2 className={Style.title}><FormattedMessage id="status.status_title"/></h2>
-                 <p><span className={Style.key}><FormattedMessage id="status.uptime"/></span> <span className={Style.value}>{moment(status.uptime).fromNow()}</span></p>
+                 <p><span className={Style.key}><FormattedMessage id="status.uptime"/></span> <span className={Style.value}>{getTimeFromNow(status.uptime)}</span></p>
                  <p><span className={Style.key}><FormattedMessage id="status.api_url"/></span> <span className={Style.value}>{this.props.global.apiUrl}</span></p>
                  <br/>
                 <h2 className={Style.title}><FormattedMessage id="status.cluster_status_title"/></h2>

@@ -7,6 +7,7 @@
     "menu.silences": "Silences",
     "menu.status": "Status",
     "menu.setting":"Setting",
+
     "alerts.level": "Level",
     "alerts.alertname": "Alertname",
     "alerts.alert_description": "Description",
@@ -38,6 +39,7 @@
     "silences.show_pending": "Pending",
     "silences.show_expired": "Expired",
 
+    "silences.detail.silence": "Silence",
     "silences.detail.affected_alerts": "Affected alerts",
     "silences.detail.recreate": "Recreate",
     "silences.detail.expiredalert": "Expired",

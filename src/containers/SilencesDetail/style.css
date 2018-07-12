@@ -15,16 +15,16 @@
 
 .title {
     font-weight: bold;
-    font-size: 40px;
+    font-size: 25px;
 }
 
 .title_box {
     border-bottom: 1px solid #00000038;
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
 .custom_btn {
     float: right;
-    margin: 10px 0;
+    margin: 5px 0;
     margin-left: 10px;
 }
