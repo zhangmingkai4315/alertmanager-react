@@ -1,17 +1,21 @@
+html,
+body,
+#root {
+    height: 100%;
+    width: 100%;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
 }
 
-.btn {
+.btn,
+.badge {
     border-radius: 0px;
 }
 
 .btn-secondary {
     background-color: #373C42;
-}
-
-.badge {
-    border-radius: 0;
 }

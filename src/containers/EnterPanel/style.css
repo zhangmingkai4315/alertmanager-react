@@ -1,0 +1,22 @@
+.enterbox {
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 100px 0 50px;
+    position: relative;
+}
+
+.small {
+    font-size: 12px;
+    margin: .2em 0;
+    color: rgba(0, 0, 0, .5);
+}
+
+.btn {
+    margin-top: 10px;
+    width: 80px;
+}
+
+.alert_box {
+    font-size: 12px;
+    margin-top: 10px;
+}

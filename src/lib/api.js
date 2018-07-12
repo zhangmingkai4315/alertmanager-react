@@ -38,10 +38,6 @@ const fetchReivers= () =>{
 
 const fetchSilences = (search,filters) =>{
     let {silenced,inhibited} = search;
-    // let filterString = '';
-    // if(filters.length >= 0 ){
-    //     filterString+=`filter={${filters.join(',')}}`;
-    // }
 
     const queryString = `?silenced=${silenced}&inhibited=${inhibited}`
 
@@ -75,6 +71,14 @@ const deleteSilenceWithID = (id) =>{
         }
     });
 }
+
+const testAlertManagerURL = (url) =>{
+    return axios.get(`${url}/status`,{
+        headers:{
+            'Accept':"application/json"
+        }
+    });
+}
 export default {
     fetchAlert,
     fetchStatus,
@@ -82,5 +86,6 @@ export default {
     fetchSilences,
     fetchSilenceWithID,
     postNewSilence,
-    deleteSilenceWithID
+    deleteSilenceWithID,
+    testAlertManagerURL
 }

@@ -1,6 +1,8 @@
 {
     "AppName": "AlertManager",
 
+    "enter.input_info_helper": "Please input your alertmanager api url. URL example: http://127.0.0.1:9093/api/v1",
+
     "menu.alerts": "Alerts",
     "menu.silences": "Silences",
     "menu.status": "Status",

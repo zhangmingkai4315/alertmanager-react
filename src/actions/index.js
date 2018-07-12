@@ -1,5 +1,8 @@
 export {fetchStatusData,
         fetchStatusDataSuccess,
+        testAlertManagerURL,
+        testAlertManagerURLFail,
+        testAlertManagerURLSuccess,
         fetchStatusDataFail} from './status'
 
 export {fetchAlerts,

@@ -1,6 +1,7 @@
 
 
-import {call, put, takeLatest, throttle,select} from 'redux-saga/effects';
+import {call, put,race,takeLatest, throttle,select} from 'redux-saga/effects';
+import { delay } from 'redux-saga'
 
 import API from '../lib/api';
 
@@ -15,6 +16,7 @@ import { FETCH_ALERTS,
          CHECK_SILENCED,
          POST_NEW_SILENCE,
          DELETE_SILENCE_WITH_ID,
+         TEST_ALERTMANAGER_URL,
          FETCH_SILENCE_WITH_ID} from '../actions/const';
          
 import { fetchAlertsSuccess,
@@ -32,8 +34,35 @@ import { fetchAlertsSuccess,
         postNewSilenceSuccess,
         deleteSilenceWithIDFail,
         deleteSilenceWithIDSuccess,
-        fetchSilenceWithAffectedAlerts
-        } from '../actions';
+        fetchSilenceWithAffectedAlerts,
+        testAlertManagerURLSuccess,
+        testAlertManagerURLFail} from '../actions';
+
+
+export function * testURL() {
+    yield takeLatest(TEST_ALERTMANAGER_URL, testAlertManagerURL);
+}
+export function * testAlertManagerURL(action) {
+    try{
+        console.log(action.payload)
+        const {testResult,timeout} = yield race({
+            testResult:call(API.testAlertManagerURL,action.payload),
+            timeout:call(delay,5000)
+        })
+        console.log(testResult,timeout)
+        if(testResult){
+            if (testResult.status &&testResult.status !== 200) {
+                throw new Error(`StatusCode=${testResult.status}`)
+            }
+            yield put(testAlertManagerURLSuccess())
+        }else{
+            yield put(testAlertManagerURLFail("Connection Timeout"))
+        }
+    }catch(error){
+        yield put(testAlertManagerURLFail(error))
+    }
+}
+
 
 export function * fetchAlertsFromAPI() {
     // first get all alerts(inhibited=false,silienced=false)
@@ -175,3 +204,4 @@ export function * makedeleteSilenceWithID(action) {
         yield put(deleteSilenceWithIDFail(error))
     }
 }
+

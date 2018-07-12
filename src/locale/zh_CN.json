@@ -1,6 +1,8 @@
 {
     "AppName": "AlertManager",
 
+    "enter.input_info_helper": "请输入Ａlertmanager的API接口地址.比如: http://127.0.0.1:9093/api/v1",
+
     "menu.alerts": "实时告警",
     "menu.silences": "屏蔽设置",
     "menu.status": "运行状态",

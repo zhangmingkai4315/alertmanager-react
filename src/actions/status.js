@@ -18,3 +18,22 @@ export const fetchStatusDataFail = (error) =>{
     }
 }
 
+export const testAlertManagerURL = (url) =>{
+    return {
+        type: Types.TEST_ALERTMANAGER_URL,
+        payload: url
+    }
+}
+
+export const testAlertManagerURLSuccess = (status) =>{
+    return {
+        type: Types.TEST_ALERTMANAGER_URL_SUCCESS,
+        payload: status
+    }
+}
+export const testAlertManagerURLFail = (error) =>{
+    return {
+        type: Types.TEST_ALERTMANAGER_URL_FAIL,
+        payload: error
+    }
+}
