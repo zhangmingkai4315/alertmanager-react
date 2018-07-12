@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { FormattedMessage } from 'react-intl'
 import {Link} from 'react-router-dom';
 import Style from './style.css';
 import {getTagListFromMatchers,getTimeFromNow} from '../../lib/utils';
@@ -44,11 +45,11 @@ class SilencesDetail extends Component {
         <p className={Style.title_box}>
             <span className={Style.title}>Silence</span>
             <button disabled={silence.status.state==='expired'} onClick={()=>this.setState({showModal:true})} className={[Style.custom_btn,"btn btn-danger"].join(" ")}>
-            <i className="fa fa-calendar-times-o" aria-hidden="true"></i> 设置到期</button>
+            <i className="fa fa-calendar-times-o" aria-hidden="true"></i> <FormattedMessage id=""/></button>
             {silence.status.state==='expired'?<Link to={{pathname:"/silences/new",matchers:silence.matchers}} className={[Style.custom_btn,"btn btn-info"].join(" ")}>
-              <i className="fa fa-refresh" aria-hidden="true"></i> 重新构建
+              <i className="fa fa-refresh" aria-hidden="true"></i>  <FormattedMessage id="silences.detail.recreate"/>
             </Link>:<Link to={{pathname:`/silences/${silence.id}/edit`,silence}} className={[Style.custom_btn,"btn btn-info"].join(" ")}>
-              <i className="fa fa-pencil-square-o" aria-hidden="true"></i> 编辑
+              <i className="fa fa-pencil-square-o" aria-hidden="true"></i> <FormattedMessage id="silences.detail.edit"/>
             </Link>}
         </p>
         <hr/>
@@ -57,35 +58,35 @@ class SilencesDetail extends Component {
           <span className={Style.value}>{silence.id}</span>
         </p>
         <p>
-          <span className={Style.key}>Starts at</span>
+          <span className={Style.key}><FormattedMessage id="silences.startsAt"/></span>
           <span className={Style.value}>{startAt}</span>
         </p>
         <p>
-          <span className={Style.key}>Updated at</span>
+          <span className={Style.key}><FormattedMessage id="silences.updatedAt"/></span>
           <span className={Style.value}>{updatedAt}</span>
         </p>
         <p>
-          <span className={Style.key}>Ends at</span>
+          <span className={Style.key}><FormattedMessage id="silences.endsAt"/></span>
           <span className={Style.value}>{endsAt}</span>
         </p>
         <p>
-          <span className={Style.key}>Created By</span>
+          <span className={Style.key}><FormattedMessage id="silences.createdBy"/></span>
           <span className={Style.value}>{silence.createdBy}</span>
         </p>
         <p>
-          <span className={Style.key}>Comment</span>
+          <span className={Style.key}><FormattedMessage id="silences.comment"/></span>
           <span className={Style.value}>{silence.comment}</span>
         </p>
         <p>
-          <span className={Style.key}>Status</span>
+          <span className={Style.key}><FormattedMessage id="silences.status"/></span>
           <span className={Style.value}>{silence.status.state}</span>
         </p>
         <p>
-          <span className={Style.key}>Matchers</span>
+          <span className={Style.key}><FormattedMessage id="silences.matchername"/></span>
           <span className={Style.value}>{tagList}</span>
         </p>
         <p className={Style.title_box}>
-            <span className={Style.title}>Affected alerts</span>
+            <span className={Style.title}><FormattedMessage id="silences.detail.affected_alerts"/></span>
         </p>
         <AlertList
                     clickTagHandler={()=>{}}

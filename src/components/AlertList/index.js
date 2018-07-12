@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl'
 import AlertItem from './AlertItem';
 import Styles from './style.css'
@@ -13,20 +14,16 @@ const AlertList = (props) => {
                 <tr>
                     <th className={Styles.sortTableHeader} 
                         onClick={()=>props.toggleAlertSeverity()}>
-                        <FormattedMessage id="alerts.level"/>
-                        {props.sort!==false &&(props.sort.serverity?<i className="fa fa-sort-down"></i>:<i className="fa fa-sort-up"></i>)}</th>
+                        <FormattedMessage id="alerts.level"/> {props.sort!==false &&(props.sort.serverity?<i className="fa fa-sort-down"></i>:<i className="fa fa-sort-up"></i>)}</th>
                     <th className={Styles.sortTableHeader}
                         onClick={()=>props.toggleAlertName()}> 
-                        名称 
-                        {props.sort!==false &&(props.sort.alertname?<i className="fa fa-sort-down"></i>:<i className="fa fa-sort-up"></i>)}</th>
-                    <th>详细</th>
-                    <th><i className="fa fa-bar-chart"></i> 链接</th>
+                        <FormattedMessage id="alerts.alertname"/> {props.sort!==false &&(props.sort.alertname?<i className="fa fa-sort-down"></i>:<i className="fa fa-sort-up"></i>)}</th>
+                    <th><FormattedMessage id="alerts.alert_description"/> </th>
+                    <th><i className="fa fa-bar-chart"></i> <FormattedMessage id="alerts.alert_link"/></th>
                     <th className={Styles.sortTableHeader} 
-                        onClick={()=>props.toggleAlertStartTime()}><i className="fa fa-calendar"></i> 
-                        出现时间 
-                        {props.sort!==false &&(props.sort.alert_starttime?<i className="fa fa-sort-down"></i>:<i className="fa fa-sort-up"></i>)}</th>
-                    <th><i className="fa fa-exchange"></i> 更新</th>
-                    <th><i className="fa fa-wrench"></i> 操作</th>
+                        onClick={()=>props.toggleAlertStartTime()}><i className="fa fa-calendar"></i> <FormattedMessage id="alerts.alert_startsAt"/> {props.sort!==false &&(props.sort.alert_starttime?<i className="fa fa-sort-down"></i>:<i className="fa fa-sort-up"></i>)}</th>
+                    <th><i className="fa fa-exchange"></i> <FormattedMessage id="alerts.alert_updatedAt"/> </th>
+                    <th><i className="fa fa-wrench"></i> <FormattedMessage id="alerts.alert_ops"/> </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,6 +33,14 @@ const AlertList = (props) => {
             {props.loading?<Loading/>:null}
         </div>
     )
+}
+AlertList.propTypes = {
+    toggleAlertSeverity: PropTypes.func,
+    toggleAlertName: PropTypes.func,
+    toggleAlertStartTime: PropTypes.func,
+    clickTagHandler: PropTypes.func,
+    sort:PropTypes.object,
+    alerts: PropTypes.array.isRequired
 }
 
 export default AlertList

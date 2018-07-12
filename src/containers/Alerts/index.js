@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
+import _ from 'lodash'
 import AlertList from '../../components/AlertList';
 import SearchBox from '../../components/SearchBox';
 import {toggleAlertSeverity,
@@ -30,20 +31,23 @@ class Alerts extends Component {
             this.props.addAlertFilter(kvstr)
         }
     }
+    filterWithSearchTerm = _.debounce((newSearchTerm) =>{
+        let alerts = []
+        const originAlerts = this.props.alerts
+        alerts = originAlerts?originAlerts:[]
+        if(newSearchTerm!==""){
+            alerts = originAlerts.filter(function(t){return JSON.stringify(t).toLowerCase().indexOf(newSearchTerm)!==-1})
+        }
+        this.setState({
+            searchTerm:newSearchTerm,
+            searchFilterAlerts:alerts
+        })
+    },500)
     componentWillReceiveProps(nextProps){
         const searchTerm = this.props.search.searchTerm
         const newSearchTerm = nextProps.search.searchTerm
         if(newSearchTerm!==this.props.search.searchTerm){
-            let alerts = []
-            const originAlerts = this.props.alerts
-            alerts = originAlerts?originAlerts:[]
-            if(newSearchTerm!==""){
-                alerts = originAlerts.filter(function(t){return JSON.stringify(t).toLowerCase().indexOf(newSearchTerm)!==-1})
-            }
-            this.setState({
-                searchTerm,
-                searchFilterAlerts:alerts
-            })
+            this.filterWithSearchTerm(newSearchTerm)
         }else{
             this.setState({
                 searchFilterAlerts:nextProps.alerts
@@ -52,31 +56,36 @@ class Alerts extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="row">
                 {this.props.alerts.error?<Alert alert={this.props.alerts.error}/>:null}
-                <SearchBox
-                    onSelectReceiver = {this.props.onSelectReceiver}
-                    onCheckSilenced= {this.props.onCheckSilenced}
-                    onCheckInhibited = {this.props.onCheckInhibited}
-                    onChangeSearchTerm = {this.props.onChangeSearchTerm}
-                    receivers={this.props.receivers}
-                    search = {this.props.search}
-                    filters = {this.props.filters}
-                    removeAlertFilter = {this.props.removeAlertFilter}
-                />
-                <div className="right">
-                    <AutoRefresh onRefresh={this.props.fetchAlerts} />
+                <div className="col-md-8">
+                    <SearchBox
+                        onSelectReceiver = {this.props.onSelectReceiver}
+                        onCheckSilenced= {this.props.onCheckSilenced}
+                        onCheckInhibited = {this.props.onCheckInhibited}
+                        onChangeSearchTerm = {this.props.onChangeSearchTerm}
+                        receivers={this.props.receivers}
+                        search = {this.props.search}
+                        filters = {this.props.filters}
+                        removeAlertFilter = {this.props.removeAlertFilter}
+                    />
                 </div>
-                
-                <AlertList
-                    loading={this.props.loading}
-                    clickTagHandler={this.clickTagHandler}
-                    alerts={this.state.searchFilterAlerts}
-                    toggleAlertSeverity={this.props.toggleAlertSeverity}
-                    toggleAlertStartTime={this.props.toggleAlertStartTime}
-                    toggleAlertName={this.props.toggleAlertName}
-                    sort={this.props.sort}
-                />
+                <div className="col-md-4">
+                    <div className="right">
+                        <AutoRefresh onRefresh={this.props.fetchAlerts} />
+                    </div>
+                </div>
+                <div className="col-md-12">
+                    <AlertList
+                        loading={this.props.loading}
+                        clickTagHandler={this.clickTagHandler}
+                        alerts={this.state.searchFilterAlerts}
+                        toggleAlertSeverity={this.props.toggleAlertSeverity}
+                        toggleAlertStartTime={this.props.toggleAlertStartTime}
+                        toggleAlertName={this.props.toggleAlertName}
+                        sort={this.props.sort}
+                    />
+                </div>
             </div>
         )
     }

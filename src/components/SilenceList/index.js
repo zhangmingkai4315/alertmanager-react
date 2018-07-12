@@ -1,26 +1,28 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
+import PropTypes from 'prop-types';
 import SilenceItem from './SilenceItem';
 import Styles from './style.css'
 const SilenceList = (props) => {
     return (
         <div className={Styles.silenceListGroup}>
             <div className="btn-group right" style={{"paddingBottom":"20px","float":"right"}} role="group" aria-label="Basic example">
-              <button type="button" className="btn btn-info" onClick={()=>props.showSilencesWithStatus('')}>显示所有</button>
-              <button type="button" className="btn btn-danger" onClick={()=>props.showSilencesWithStatus('active')}>当前激活</button>
-              <button type="button" className="btn btn-warning" onClick={()=>props.showSilencesWithStatus('pending')}>即将生效</button>
-              <button type="button" className="btn btn-secondary"  onClick={()=>props.showSilencesWithStatus('expired')}>已过期</button>
+              <button type="button" className={`${Styles.custom_btn} btn btn-info`} onClick={()=>props.showSilencesWithStatus('')}><FormattedMessage id="silences.show_all"/></button>
+              <button type="button" className={`${Styles.custom_btn} btn btn-info`} onClick={()=>props.showSilencesWithStatus('active')}><FormattedMessage id="silences.show_active"/></button>
+              <button type="button" className={`${Styles.custom_btn} btn btn-info`} onClick={()=>props.showSilencesWithStatus('pending')}><FormattedMessage id="silences.show_pending"/></button>
+              <button type="button" className={`${Styles.custom_btn} btn btn-info`}  onClick={()=>props.showSilencesWithStatus('expired')}><FormattedMessage id="silences.show_expired"/></button>
             </div>
             <table className="table table-hover">
                 <thead>
                 <tr>
-                    <th>匹配信息</th>
-                    <th>操作人</th>
-                    <th>注释</th>
-                    <th>当前状态</th>
-                    <th>执行时间</th>
-                    <th>更新时间</th>
-                    <th>结束时间</th>
-                    <th><i className="fa fa-wrench"></i> 操作</th>
+                    <th><FormattedMessage id="silences.matchername"/></th>
+                    <th><FormattedMessage id="silences.createdBy"/></th>
+                    <th><FormattedMessage id="silences.comment"/></th>
+                    <th><FormattedMessage id="silences.status"/></th>
+                    <th><FormattedMessage id="silences.startsAt"/></th>
+                    <th><FormattedMessage id="silences.endsAt"/></th>
+                    <th><FormattedMessage id="silences.updatedAt"/></th>
+                    <th><i className="fa fa-wrench"></i> <FormattedMessage id="silences.tools"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,6 +31,11 @@ const SilenceList = (props) => {
             </table>
         </div>
     )
+}
+
+SilenceList.propTypes = {
+    showSilencesWithStatus: PropTypes.func.isRequired,
+    silences: PropTypes.array.isRequired
 }
 
 export default SilenceList

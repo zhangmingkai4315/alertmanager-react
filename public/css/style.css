@@ -5,14 +5,13 @@ body {
 }
 
 .btn {
-    border-radius: 1px;
+    border-radius: 0px;
 }
 
 .btn-secondary {
     background-color: #373C42;
 }
 
-.full-size {
-    padding: 0;
-    margin: 0;
+.badge {
+    border-radius: 0;
 }

@@ -41,7 +41,11 @@ export function * fetchAlertsFromAPI() {
 }
 export function *fetchAlertsUsingSearchBox(){
     // refresh alert with search infomation
-    yield throttle(500,[SELECT_RECEIVER,CHECK_INHIBITED,CHECK_SILENCED,ALERT_ADD_FILTER,ALERT_REMOVE_FILTER], makeFetchAlerts);
+    yield throttle(500,[SELECT_RECEIVER,
+                        CHECK_INHIBITED,
+                        CHECK_SILENCED,
+                        ALERT_ADD_FILTER,
+                        ALERT_REMOVE_FILTER], makeFetchAlerts);
 }
 export function * makeFetchAlerts() {
     try{

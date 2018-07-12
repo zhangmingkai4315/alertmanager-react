@@ -12,7 +12,9 @@ const {locale,messages} = i18n
 const App = () => {
     return (
         <Provider store={store}>
-            <IntlProvider locale={locale} messages={messages[locale]}>
+            <IntlProvider 
+                locale={locale} 
+                messages={messages[locale]}>
                 <BrowserRouter>
                     <Routes/>
                 </BrowserRouter>

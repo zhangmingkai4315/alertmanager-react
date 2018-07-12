@@ -1,5 +1,4 @@
 import moment from "moment";
-
 const durationRegex = new RegExp(/^\d+[h,d,m]{1}$/);
 const groupDurationRegex = new RegExp(/^(\d+)([h,d,m]{1})$/)
 export const checkDurationFormat = (date)=>{
@@ -51,16 +50,16 @@ export const getOffsetFromTimes = (start,end) =>{
 const validate = values => {
     const errors = {}
     if(!values.startsAt){
-        errors.startsAt = "必填"
+        errors.startsAt = "Required"
     }
     if(!values.endsAt){
-        errors.endsAt = "必填"
+        errors.endsAt = "Required"
     }
     if(moment(values.startsAt).isAfter(moment(values.endsAt))){
-        errors.startsAt = "不得晚于结束时间 "
+        errors.startsAt = "StartTime must before endTime "
     }
     if(!values.createdBy){
-        errors.createdBy = "必填"
+        errors.createdBy = "Required"
     }
     if(values.duration){
         if(!checkDurationFormat(values.duration)){
@@ -68,20 +67,20 @@ const validate = values => {
         }
     }
     if(!values.comment){
-        errors.comment = "必填"
+        errors.comment = "Required"
     }
     if(!values.matchers|| !values.matchers.length){
-        errors.matchers = {_error:"至少填写一项匹配"};
+        errors.matchers = {_error:"At Least one matcher"};
     }else{
         const matchersArrayErrors = [];
         values.matchers.forEach((matcher,index)=>{
             const matcherErrors = {}
             if(!matcher || !matcher.name){
-                matcherErrors.name = "必填"
+                matcherErrors.name = "Required"
                 matchersArrayErrors[index] = matcherErrors;
             }
             if(!matcher || !matcher.value){
-                matcherErrors.value = "必填"
+                matcherErrors.value = "Required"
                 matchersArrayErrors[index] = matcherErrors;
             }
 

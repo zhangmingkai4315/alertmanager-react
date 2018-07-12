@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import { FormattedMessage} from 'react-intl'
 import {connect} from 'react-redux';
 import { fetchStatusData } from '../../actions';
 import Style from './style.css'
@@ -18,11 +19,6 @@ class Status extends Component {
         if(error){
             return (<Alert alert={error}/>)
         }
-        let versionInfo = []
-        for(var infokey in status.versionInfo){
-            versionInfo.push(<p key={infokey}><span className={Style.key}>{infokey}</span><span  className={Style.value}>{status.versionInfo[infokey]}</span>
-                </p>)
-        }
         let statusbar = ''
         if(status.clusterStatus.status === 'ready'){
             statusbar = <span className="badge badge-success">{status.clusterStatus.status}</span>
@@ -31,30 +27,36 @@ class Status extends Component {
         }
         return (
             <div className={Style.status_box}>
-                <h2 className={Style.title}>Status</h2>
-                 <span className={Style.key}>Uptime</span> <span className={Style.value}>{moment(status.uptime).fromNow()}</span>
+                <h2 className={Style.title}><FormattedMessage id="status.status_title"/></h2>
+                 <span className={Style.key}><FormattedMessage id="status.uptime"/></span> <span className={Style.value}>{moment(status.uptime).fromNow()}</span>
                 <hr/>
-                <h2 className={Style.title}>Cluster Status</h2>
-                <p><span className={Style.key}>name</span><span className={Style.value}>{status.clusterStatus.name}</span></p>
-                <p><span className={Style.key}>status</span><span className={Style.value}>{statusbar}</span></p>
-                <p><span className={Style.key}>peer</span><span className={Style.value}>{status.clusterStatus.peers.map((p,i)=><span key={i} className="badge badge-info">{p.address}</span>)}</span></p>
+                <h2 className={Style.title}><FormattedMessage id="status.cluster_status_title"/></h2>
+                <p><span className={Style.key}><FormattedMessage id="status.cluster_name"/></span><span className={Style.value}>{status.clusterStatus.name}</span></p>
+                <p><span className={Style.key}><FormattedMessage id="status.cluster_status"/></span><span className={Style.value}>{statusbar}</span></p>
+                <p><span className={Style.key}><FormattedMessage id="status.cluster_peer"/></span><span className={Style.value}>{status.clusterStatus.peers.map((p,i)=><span key={i} className="badge badge-info">{p.address}</span>)}</span></p>
                 <hr/>   
-                <h2 className={Style.title} >Version Information</h2>
-                {versionInfo}
+                <h2 className={Style.title} ><FormattedMessage id="status.version_information_title"/></h2>
+                {/* {versionInfo} */}
+                <p><span className={Style.key}><FormattedMessage id="status.version_branch"/></span><span className={Style.value}>{status.versionInfo.branch}</span></p>
+                <p><span className={Style.key}><FormattedMessage id="status.version_builddate"/></span><span className={Style.value}>{status.versionInfo.buildDate}</span></p>
+                <p><span className={Style.key}><FormattedMessage id="status.version_builduser"/></span><span className={Style.value}>{status.versionInfo.buildUser}</span></p>
+                <p><span className={Style.key}><FormattedMessage id="status.version_goversion"/></span><span className={Style.value}>{status.versionInfo.goVersion}</span></p>
+                <p><span className={Style.key}><FormattedMessage id="status.version_revision"/></span><span className={Style.value}>{status.versionInfo.revision}</span></p>
+                <p><span className={Style.key}><FormattedMessage id="status.version_version"/></span><span className={Style.value}>{status.versionInfo.version}</span></p>
                 <hr/>
-                <h2 className={Style.title}>Config</h2>
+                <h2 className={Style.title}><FormattedMessage id="status.config_title"/></h2>
                 <pre>{status.configYAML}</pre>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         status: state.status
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         fetchStatusData: () => {
             dispatch(fetchStatusData())

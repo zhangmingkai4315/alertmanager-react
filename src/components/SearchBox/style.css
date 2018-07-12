@@ -1,6 +1,6 @@
 .searchbox {
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 
 .controlbar {
@@ -9,4 +9,11 @@
 
 .controlbar span {
     margin: 0px 10px;
+}
+
+.search_filter {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    cursor: pointer;
 }

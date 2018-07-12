@@ -1,4 +1,5 @@
 import { addLocaleData } from 'react-intl';
+// import momentLocale from 'moment/locale/zh-cn';
 
 import zh from 'react-intl/locale-data/zh';
 import en from 'react-intl/locale-data/en';
@@ -13,7 +14,14 @@ messages["en"] = en_US;
 messages["zh-CN"] = zh_CN;
 
 const languages = navigator.languages;
-const currentLang = languages[0];
+
+let currentLang = languages[0];
+
+if(currentLang === 'zh'){
+    currentLang = 'zh-CN'
+}else if(!messages[currentLang]){
+    currentLang = 'en'
+}
 
 const i18nConfig = {
     locale:currentLang,

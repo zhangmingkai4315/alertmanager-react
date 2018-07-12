@@ -1,5 +1,8 @@
 import React from 'react'
+import { injectIntl } from 'react-intl'
+
 import Style from './style.css'
+import PropTypes from 'prop-types';
 class AutoRefresh extends React.Component {
     state = {
         timer:null,
@@ -20,20 +23,22 @@ class AutoRefresh extends React.Component {
             this.setState({timer,selected:timeInterval})
         }
     }
+
     render(){
         return (
             <div>
                 <select onChange={this.updateTimer} className={`custom-select ${Style.custom} ${this.state.selected>0 ? Style.enabled:""}`} defaultValue="0">
-                    <option value="0">关闭自动刷新</option>
-                    <option value="10">10秒</option>
-                    <option value="30">30秒</option>
-                    <option value="60">1分钟</option>
-                    <option value="120">2分钟</option>
-                    <option value="300">5分钟</option>
-                    <option value="600">10分钟</option>
+                    <option value="0">{this.props.intl.formatMessage({id:"alerts.off_auto_refresh"})}</option>
+                    <option value="10">{this.props.intl.formatMessage({id:"alerts.auto_refresh_10s"})}</option>
+                    <option value="30">{this.props.intl.formatMessage({id:"alerts.auto_refresh_30s"})}</option>
+                    <option value="60">{this.props.intl.formatMessage({id:"alerts.auto_refresh_1m"})}</option>
+                    <option value="300">{this.props.intl.formatMessage({id:"alerts.auto_refresh_5m"})}</option>
                 </select>
             </div>)
     }
 }
 
-export default AutoRefresh
+AutoRefresh.propTypes = {
+    onRefresh: PropTypes.func.isRequired
+}
+export default injectIntl(AutoRefresh)

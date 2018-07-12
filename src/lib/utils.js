@@ -1,12 +1,8 @@
 import React from 'react';
-
-import config from '../config.json';
-import moment from 'moment';
-import momentLocale from 'moment/locale/zh-cn';
-moment.updateLocale(config.i18n, momentLocale);
+import { FormattedRelative } from 'react-intl'
 
 export const getTimeFromNow = (time) =>{
-    return moment(time).fromNow()
+    return <FormattedRelative value={new Date(time)}/>
 }
 export const getAlertClass = (severity) => {
     try {
@@ -30,7 +26,7 @@ export const getTagListFromMatchers = (matchers,insert=true) => {
         let className = "badge badge-info"
         if(matchers[m].isRegex){
             // regex only
-            className="badge badge-primary";
+            className="badge badge-success";
         }
         tagList.push(
             <span

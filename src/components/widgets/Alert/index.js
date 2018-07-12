@@ -1,5 +1,5 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'; 
 const Alert = ({alert}) => {
   return (
     <div className="alert alert-warning alert-dismissible fade show" role="alert">
@@ -11,4 +11,7 @@ const Alert = ({alert}) => {
   )
 }
 
+Alert.propTypes ={
+  alert:PropTypes.string.isRequired
+}
 export default Alert

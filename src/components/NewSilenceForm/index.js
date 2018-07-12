@@ -1,4 +1,6 @@
 import React,{Component} from 'react'
+import { FormattedMessage,injectIntl } from 'react-intl'
+import PropTypes from 'prop-types';
 import { Field, reduxForm, FieldArray } from 'redux-form';
 import moment from 'moment'
 import momentLocalizer from 'react-widgets-moment';
@@ -68,16 +70,22 @@ class NewSilenceForm extends Component{
             <div className="form-group row">
                 <div className="col-sm-2">
                     <button className="btn btn-info" onClick={()=>fields.push()}>
-                        <i className="fa fa-plus" aria-hidden="true"></i> 新增matcher
+                        <i className="fa fa-plus" aria-hidden="true"></i> <FormattedMessage id="silences.new.matchers_new"/>
                     </button>
                 </div>
                 <span className={Style.error}>{error}</span>
             </div>
             {fields.map((matcher, index)=>(
                 <div className="form-inline row" key={index}>
-                    <Field name={`${matcher}.name`} component={this.renderMatcherItem} placeholder="名称" type="text" />
-                    <Field name={`${matcher}.value`} component={this.renderMatcherItem} placeholder="键值" type="text" />
-                    <label className="col-sm-2 col-form-label" htmlFor="isRegex">使用正则匹配</label>
+                    <Field name={`${matcher}.name`}
+                           component={this.renderMatcherItem} 
+                           placeholder={this.props.intl.formatMessage({id:"silences.new.matchers_new_name"})} 
+                           type="text" />
+                    <Field name={`${matcher}.value`} 
+                           component={this.renderMatcherItem} 
+                           placeholder={this.props.intl.formatMessage({id:"silences.new.matchers_new_value"})} 
+                           type="text" />
+                    <label className="col-sm-2 col-form-label" htmlFor="isRegex"> <FormattedMessage id="silences.new.matchers_using_regex"/></label>
                     <div className="col-sm-1">
                         <Field name={`${matcher}.isRegex`} component="input" className="form-control form-check-input" type="checkbox" />
                     </div>
@@ -85,7 +93,7 @@ class NewSilenceForm extends Component{
                          <button type="submit" 
                          onClick={()=>fields.remove(index)} 
                          className="btn btn-danger">
-                         <i className="fa fa-trash" aria-hidden="true"></i> 删除</button>
+                         <i className="fa fa-trash" aria-hidden="true"></i> <FormattedMessage id="silences.new.matchers_delete"/></button>
                     </div>
                  </div> 
             ))}
@@ -146,10 +154,10 @@ class NewSilenceForm extends Component{
                                onChange={this.handleStartTimeChange}
                                offset = {0}
                                normalize={formatDateToISO}
-                               label="开始时间"/>
+                               label={this.props.intl.formatMessage({id:'silences.new.startsAt'})}/>
                         <Field name="duration" 
                                component={this.renderField} 
-                               label="持续时间"
+                               label={this.props.intl.formatMessage({id:'silences.new.duration'})}
                                placeholder=""
                                onChange={this.handleDurationChange}
                                type="text"/>
@@ -158,7 +166,7 @@ class NewSilenceForm extends Component{
                                onChange={this.handleEndTimeChange}
                                component={this.renderDateTimePicker}
                                normalize={formatDateToISO}
-                               label="结束时间"/>
+                               label={this.props.intl.formatMessage({id:'silences.new.endsAt'})}/>
                     </div>
                     <div className="col">
                         <h3 className={Style.title}>Matchers</h3>
@@ -168,22 +176,22 @@ class NewSilenceForm extends Component{
                         <h3 className={Style.title}>Information</h3>
                         <Field name="createdBy" 
                                component={this.renderField} 
-                               label="创建人"
+                               label={this.props.intl.formatMessage({id:'silences.new.information_createdBy'})}
                                type="text"/>
                         <Field name="comment" 
                                component={this.renderField} 
-                               label="备注信息"
+                               label={this.props.intl.formatMessage({id:'silences.new.information_comment'})}
                                type="text"/>
                     </div>
                     <div className="col">
                         <div className="form-group row">
                             <div className="col-sm-6">
                                 <button type="submit" className="btn btn-info" disabled={submitting}>
-                                    <i className="fa fa-paper-plane" aria-hidden="true"></i> 提交
+                                    <i className="fa fa-paper-plane" aria-hidden="true"></i> <FormattedMessage id="silences.new.button_submit"/>
                                 </button>
                                 <span> </span>
                                 <button className="btn btn-warning" disabled={pristine || submitting } onClick={reset}>
-                                <i className="fa fa-undo" aria-hidden="true"></i> 重置</button>
+                                <i className="fa fa-undo" aria-hidden="true"></i> <FormattedMessage id="silences.new.button_reset"/></button>
                             </div>
                         </div>
                     </div>
@@ -193,10 +201,14 @@ class NewSilenceForm extends Component{
     }
 }
 
+NewSilenceForm.propTypes = {
+    location: PropTypes.object,
+    onSubmit: PropTypes.func.isRequired
+}
+
 NewSilenceForm = reduxForm({
     form:"new_silence",
     validate,
-    
-})(NewSilenceForm)
+})(injectIntl(NewSilenceForm))
 
 export default NewSilenceForm

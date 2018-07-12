@@ -1,10 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {getTagListFromMatchers,getTimeFromNow} from '../../lib/utils';
 
-const SilenceItem = ({silence}) => {
+const SilenceItem = ({ silence }) => {
     const tagList = getTagListFromMatchers(silence.matchers||[])
-    const startAt = getTimeFromNow(silence.startsAt);
+    const startsAt = getTimeFromNow(silence.startsAt);
     const updatedAt = getTimeFromNow(silence.updatedAt);
     const endsAt = getTimeFromNow(silence.endsAt);
     return (
@@ -22,7 +23,7 @@ const SilenceItem = ({silence}) => {
                 {silence.status.state}
             </td>
             <td>
-                {startAt}
+                {startsAt}
             </td>
             <td>
                 {updatedAt}
@@ -40,6 +41,18 @@ const SilenceItem = ({silence}) => {
     )
 }
 
+SilenceItem.propTypes = {
+    silence: PropTypes.shape({
+        id : PropTypes.string.isRequired,
+        startsAt: PropTypes.string.isRequired,
+        updatedAt: PropTypes.string.isRequired,
+        endsAt: PropTypes.string.isRequired,
+        status: PropTypes.object.isRequired,
+        createdBy : PropTypes.string.isRequired,
+        comment : PropTypes.string.isRequired,
+        matchers: PropTypes.array.isRequired,
+    })
 
+}
 
 export default SilenceItem
