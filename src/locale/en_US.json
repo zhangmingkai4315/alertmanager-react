@@ -2,11 +2,11 @@
     "AppName": "AlertManager",
 
     "enter.input_info_helper": "Please input your alertmanager api url. URL example: http://127.0.0.1:9093/api/v1",
-
+    "enter.btn.test":"Test Connect",
     "menu.alerts": "Alerts",
     "menu.silences": "Silences",
     "menu.status": "Status",
-
+    "menu.setting":"Setting",
     "alerts.level": "Level",
     "alerts.alertname": "Alertname",
     "alerts.alert_description": "Description",
@@ -68,6 +68,8 @@
     "status.cluster_name": "Name",
     "status.cluster_status": "Status",
     "status.cluster_peer": "Peers",
+    "status.api_url":"API URL",
+
 
     "status.version_information_title": "Version Ｉnformation",
     "status.version_branch": "Branch",

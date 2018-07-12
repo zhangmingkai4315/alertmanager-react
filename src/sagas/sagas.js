@@ -44,21 +44,20 @@ export function * testURL() {
 }
 export function * testAlertManagerURL(action) {
     try{
-        console.log(action.payload)
         const {testResult,timeout} = yield race({
             testResult:call(API.testAlertManagerURL,action.payload),
             timeout:call(delay,5000)
         })
-        console.log(testResult,timeout)
         if(testResult){
             if (testResult.status &&testResult.status !== 200) {
                 throw new Error(`StatusCode=${testResult.status}`)
             }
-            yield put(testAlertManagerURLSuccess())
-        }else{
+            yield put(testAlertManagerURLSuccess(action.payload))
+        }else if(timeout){
             yield put(testAlertManagerURLFail("Connection Timeout"))
         }
     }catch(error){
+        console.log(error)
         yield put(testAlertManagerURLFail(error))
     }
 }

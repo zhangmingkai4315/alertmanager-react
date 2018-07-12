@@ -17,7 +17,7 @@ class Status extends Component {
         }
 
         if(error){
-            return (<Alert alert={error}/>)
+            return (<Alert alert={error.toString()}/>)
         }
         let statusbar = ''
         if(status.clusterStatus.status === 'ready'){
@@ -27,14 +27,15 @@ class Status extends Component {
         }
         return (
             <div className={Style.status_box}>
-                <h2 className={Style.title}><FormattedMessage id="status.status_title"/></h2>
-                 <span className={Style.key}><FormattedMessage id="status.uptime"/></span> <span className={Style.value}>{moment(status.uptime).fromNow()}</span>
-                <hr/>
+                 <h2 className={Style.title}><FormattedMessage id="status.status_title"/></h2>
+                 <p><span className={Style.key}><FormattedMessage id="status.uptime"/></span> <span className={Style.value}>{moment(status.uptime).fromNow()}</span></p>
+                 <p><span className={Style.key}><FormattedMessage id="status.api_url"/></span> <span className={Style.value}>{this.props.global.apiUrl}</span></p>
+                 <br/>
                 <h2 className={Style.title}><FormattedMessage id="status.cluster_status_title"/></h2>
                 <p><span className={Style.key}><FormattedMessage id="status.cluster_name"/></span><span className={Style.value}>{status.clusterStatus.name}</span></p>
                 <p><span className={Style.key}><FormattedMessage id="status.cluster_status"/></span><span className={Style.value}>{statusbar}</span></p>
                 <p><span className={Style.key}><FormattedMessage id="status.cluster_peer"/></span><span className={Style.value}>{status.clusterStatus.peers.map((p,i)=><span key={i} className="badge badge-info">{p.address}</span>)}</span></p>
-                <hr/>   
+                <br/>
                 <h2 className={Style.title} ><FormattedMessage id="status.version_information_title"/></h2>
                 {/* {versionInfo} */}
                 <p><span className={Style.key}><FormattedMessage id="status.version_branch"/></span><span className={Style.value}>{status.versionInfo.branch}</span></p>
@@ -43,7 +44,7 @@ class Status extends Component {
                 <p><span className={Style.key}><FormattedMessage id="status.version_goversion"/></span><span className={Style.value}>{status.versionInfo.goVersion}</span></p>
                 <p><span className={Style.key}><FormattedMessage id="status.version_revision"/></span><span className={Style.value}>{status.versionInfo.revision}</span></p>
                 <p><span className={Style.key}><FormattedMessage id="status.version_version"/></span><span className={Style.value}>{status.versionInfo.version}</span></p>
-                <hr/>
+                <br/>
                 <h2 className={Style.title}><FormattedMessage id="status.config_title"/></h2>
                 <pre>{status.configYAML}</pre>
             </div>
@@ -53,7 +54,8 @@ class Status extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        status: state.status
+        status: state.status,
+        global: state.global
     }
 }
 const mapDispatchToProps = (dispatch) => {

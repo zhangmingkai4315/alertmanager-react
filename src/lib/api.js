@@ -1,8 +1,7 @@
 import axios from 'axios';
-import config from '../config.json';
-const API_URL = config.API_URL;
 
 const fetchAlert = (search,filters) =>{
+    const API_URL = localStorage.getItem("apiUrl")
     let {silenced,inhibited,receiver} = search;
     if(receiver ==='All'){
         receiver = ""
@@ -22,6 +21,7 @@ const fetchAlert = (search,filters) =>{
 }
 
 const fetchStatus= () =>{
+    const API_URL = localStorage.getItem("apiUrl")
     return axios.get(`${API_URL}/status`,{
         headers:{
             'Accept':"application/json"
@@ -29,6 +29,7 @@ const fetchStatus= () =>{
     });
 }
 const fetchReivers= () =>{
+    const API_URL = localStorage.getItem("apiUrl")
     return axios.get(`${API_URL}/receivers`,{
         headers:{
             'Accept':"application/json"
@@ -38,7 +39,7 @@ const fetchReivers= () =>{
 
 const fetchSilences = (search,filters) =>{
     let {silenced,inhibited} = search;
-
+    const API_URL = localStorage.getItem("apiUrl")
     const queryString = `?silenced=${silenced}&inhibited=${inhibited}`
 
     return axios.get(`${API_URL}/silences${queryString}`,{
@@ -49,6 +50,7 @@ const fetchSilences = (search,filters) =>{
 }
 
 const fetchSilenceWithID = (id) =>{
+    const API_URL = localStorage.getItem("apiUrl")
     return axios.get(`${API_URL}/silence/${id}`,{
         headers:{
             'Accept':"application/json"
@@ -57,6 +59,7 @@ const fetchSilenceWithID = (id) =>{
 }
 
 const postNewSilence = (silence) =>{
+    const API_URL = localStorage.getItem("apiUrl")
     return axios.post(`${API_URL}/silences`,silence,{
         headers:{
             'Accept':"application/json"
@@ -65,6 +68,7 @@ const postNewSilence = (silence) =>{
 }
 
 const deleteSilenceWithID = (id) =>{
+    const API_URL = localStorage.getItem("apiUrl")
     return axios.delete(`${API_URL}/silence/${id}`,{
         headers:{
             'Accept':"application/json"

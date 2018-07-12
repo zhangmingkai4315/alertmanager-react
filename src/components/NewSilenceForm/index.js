@@ -148,7 +148,7 @@ class NewSilenceForm extends Component{
             <div className={Style.silence_box}>
                 <form onSubmit={handleSubmit}>
                     <div className="col">
-                        <h2 className={Style.title}>Silence</h2>
+                        <h2 className={Style.title}><FormattedMessage id="silences.new.silence_title"/></h2>
                         <Field name="startsAt" 
                                component={this.renderDateTimePicker}
                                onChange={this.handleStartTimeChange}
@@ -169,11 +169,11 @@ class NewSilenceForm extends Component{
                                label={this.props.intl.formatMessage({id:'silences.new.endsAt'})}/>
                     </div>
                     <div className="col">
-                        <h3 className={Style.title}>Matchers</h3>
+                        <h3 className={Style.title}><FormattedMessage id="silences.new.matchers_title"/></h3>
                         <FieldArray name="matchers" component={this.renderMatchers}/>
                     </div>
                     <div className="col">
-                        <h3 className={Style.title}>Information</h3>
+                        <h3 className={Style.title}><FormattedMessage id="silences.new.information_title"/></h3>
                         <Field name="createdBy" 
                                component={this.renderField} 
                                label={this.props.intl.formatMessage({id:'silences.new.information_createdBy'})}

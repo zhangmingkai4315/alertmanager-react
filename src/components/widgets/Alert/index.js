@@ -12,6 +12,6 @@ const Alert = ({alert}) => {
 }
 
 Alert.propTypes ={
-  alert:PropTypes.string.isRequired
+  alert:PropTypes.oneOf([PropTypes.string,PropTypes.object])
 }
 export default Alert

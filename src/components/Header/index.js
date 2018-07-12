@@ -19,6 +19,9 @@ const Header = () => {
                         </li>
                         <li className="nav-item">
                             <NavLink to="/status" className="nav-link"><FormattedMessage id="menu.status"/></NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/enter" className="nav-link"><FormattedMessage id="menu.setting"/></NavLink>
                         </li> 
                     </ul>
                     <form className="form-inline">

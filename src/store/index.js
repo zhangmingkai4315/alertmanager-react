@@ -1,6 +1,6 @@
 import {createStore, applyMiddleware, compose} from 'redux'
 import createSagaMiddleware from 'redux-saga'
-
+import {loadAPIURLFromStore} from '../actions'
 import reducers from '../reducers'
 import rootSagas from '../sagas';
 
@@ -19,5 +19,6 @@ const enhancer = composeEnhancers(applyMiddleware(...middleware));
 
 const store = createStore(reducers, {}, enhancer);
 sagaMiddleware.run(rootSagas);
+store.dispatch(loadAPIURLFromStore())
 
 export default store;

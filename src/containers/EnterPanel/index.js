@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import Styles from "./style.css"
 import { FormattedMessage } from 'react-intl'
 import {connect} from 'react-redux';
@@ -13,17 +14,27 @@ class EnterPanel extends Component {
         if(url && /^(http|https):\/\/[^ "]+$/.test(url)){
             this.props.testAlertManagerURL(url)
         }else{
-            this.setState({error:"url validate fail"})
+            this.setState({error:"Validate error.Change you input url and try submitting again."})
         }
     }
-    validateURL =()=>{
 
+    componentWillReceiveProps(nextProps){
+        const errorMessage = nextProps.error && nextProps.error.toString()
+        console.log(errorMessage)
+        this.setState({
+            error:errorMessage
+        }) 
     }
-    renderError = () =>{
+    renderMessage = () =>{
         if(this.state.error !== ''){
-            return <div class={`${Styles.alert_box} alert alert-danger`} role="alert">
-                        <strong>Validate Error!</strong> Change you input url and try submitting again.
+            return <div className={`${Styles.alert_box} alert alert-danger`} role="alert">
+                        <strong>{this.state.error}</strong> 
                     </div>
+        }
+        if(this.props.url &&  this.props.url === this.state.url ){
+            return <div className={`${Styles.alert_box} alert alert-success`}>
+                    <strong>Connected! </strong> Now you can click <Link to="/alerts">alerts</Link> to all alerts status.
+                   </div>
         }
         return null
     }
@@ -41,8 +52,8 @@ class EnterPanel extends Component {
                             <button onClick={this.onHandleEnter}
                                     disabled={this.props.loading} 
                                     className={`${Styles.btn} btn btn-info`}>
-                            {this.props.loading?<i className="fa fa-spinner fa-spin" aria-hidden="true"></i>:""} Enter</button>
-                            {this.renderError()}
+                            {this.props.loading?<i className="fa fa-spinner fa-spin" aria-hidden="true"></i>:""} <FormattedMessage id="enter.btn.test"/></button>
+                            {this.renderMessage()}
                         </div>
                     </div>
                 </div>
@@ -52,9 +63,9 @@ class EnterPanel extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        loading: state.status.loading,
-        error:state.status.error,
-        test:state.status.test
+        loading: state.global.loading,
+        error:state.global.error,
+        url: state.global.apiUrl,
     }
 }
 const mapDispatchToProps = (dispatch) => {

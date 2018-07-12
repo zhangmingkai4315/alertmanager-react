@@ -1,9 +1,12 @@
 export {fetchStatusData,
         fetchStatusDataSuccess,
+        fetchStatusDataFail} from './status'
+
+export {saveURLToStorage,        
         testAlertManagerURL,
         testAlertManagerURLFail,
         testAlertManagerURLSuccess,
-        fetchStatusDataFail} from './status'
+        loadAPIURLFromStore} from './global'
 
 export {fetchAlerts,
         fetchAlertsFail,

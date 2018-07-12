@@ -13,7 +13,8 @@ import ResouceNotFound from './components/widgets/ResouceNotFound'
 const Routes = () =>{
     return (
         <Switch>
-            <Route path="/" exact component={Layout({Content:EnterPanel})}/>
+            <Route path="/enter" exact component={Layout({Content:EnterPanel})}/>
+            <Route path="/" exact component={Layout({Content:Alerts})}/>
             <Route path="/alerts" exact component={Layout({Content:Alerts})}/>
             <Route path="/silences" exact component={Layout({Content:Silences})}/>
             <Route path="/silence/:id" exact component={Layout({Content:SilencesDetail})}/>
