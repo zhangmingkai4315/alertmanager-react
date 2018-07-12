@@ -3,7 +3,6 @@ import { FormattedMessage} from 'react-intl'
 import {connect} from 'react-redux';
 import { fetchStatusData } from '../../actions';
 import Style from './style.css'
-import moment from 'moment';
 import Widgets from '../../components/widgets';
 import {getTimeFromNow} from '../../lib/utils'
 const {Alert,Loading} = Widgets;
