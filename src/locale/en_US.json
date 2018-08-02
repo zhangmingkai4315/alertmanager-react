@@ -2,11 +2,12 @@
     "AppName": "AlertManager",
 
     "enter.input_info_helper": "Please input your alertmanager api url. URL example: http://127.0.0.1:9093/api/v1",
-    "enter.btn.test":"Test Connect",
+    "enter.input_history_helper": "Please input your alertmanager-history server URL,比如:http://127.0.0.1:7986",
+    "enter.btn.test": "Connect",
     "menu.alerts": "Alerts",
     "menu.silences": "Silences",
     "menu.status": "Status",
-    "menu.setting":"Setting",
+    "menu.setting": "Setting",
 
     "alerts.level": "Level",
     "alerts.alertname": "Alertname",
@@ -70,7 +71,7 @@
     "status.cluster_name": "Name",
     "status.cluster_status": "Status",
     "status.cluster_peer": "Peers",
-    "status.api_url":"API URL",
+    "status.api_url": "API URL",
 
 
     "status.version_information_title": "Version Ｉnformation",

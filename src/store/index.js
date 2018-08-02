@@ -19,6 +19,13 @@ const enhancer = composeEnhancers(applyMiddleware(...middleware));
 
 const store = createStore(reducers, {}, enhancer);
 sagaMiddleware.run(rootSagas);
-store.dispatch(loadAPIURLFromStore())
+
+const apiUrl = localStorage.getItem('apiUrl')
+const historyUrl = localStorage.getItem("historyUrl")
+
+if(apiUrl!=='' && historyUrl!==''){
+  store.dispatch(loadAPIURLFromStore(apiUrl,historyUrl))
+}
+
 
 export default store;

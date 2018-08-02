@@ -14,7 +14,7 @@ function Layout(components) {
                     <div className={Style.content}>
                         <Header/>
                         <div className="container-fluid">
-                             {this.props.url ? <Content {...this.props}/> : <EnterPanel/>}
+                             {this.props.alertmanterUrl && this.props.historyUrl ? <Content {...this.props}/> : <EnterPanel/>}
                         </div>
                     </div>
                     <Footer/>
@@ -25,7 +25,8 @@ function Layout(components) {
     Component.displayName = 'Layout';
     const mapStateToProps = (state) => {
         return {
-            url: state.global.apiUrl
+            alertmanterUrl: state.global.apiUrl,
+            historyUrl: state.global.historyUrl,
         }
     }
     return connect(mapStateToProps)(Component);

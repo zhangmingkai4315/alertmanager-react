@@ -3,40 +3,69 @@ import { Link } from 'react-router-dom'
 import Styles from "./style.css"
 import { FormattedMessage } from 'react-intl'
 import {connect} from 'react-redux';
-import { testAlertManagerURL } from '../../actions'
+import { connectAlertManagerURL,connectHistoryServerURL } from '../../actions'
+import {isURL} from '../../lib/utils'
 class EnterPanel extends Component {
     state = {
-        url:"",
+        alertmanager_url:"",
+        history_server_url:"",
         error:"",
     }
     onHandleEnter =() => {
-        const url = this.state.url.trim();
-        if(url && /^(http|https):\/\/[^ "]+$/.test(url)){
-            this.props.testAlertManagerURL(url)
+        if(!this.state.alertmanager_url) {
+            this.setState({error:"AlertManager is empty"})
+            return 
+        }
+         if(!this.state.history_server_url) {
+            this.setState({error:"History server is empty"})
+            return 
+        }       
+        const alertmanager_url = this.state.alertmanager_url.trim();
+        const history_server_url = this.state.history_server_url.trim();
+        if(isURL(alertmanager_url) && isURL(history_server_url)){
+            this.props.connectAlertManagerURL(alertmanager_url)
+            this.props.connectHistoryServerURL(history_server_url)
         }else{
             this.setState({error:"Validate error.Change you input url and try submitting again."})
         }
     }
-
+    componentDidMount(){
+        this.setState({
+            alertmanager_url:this.props.alertmanager_url,
+            history_server_url:this.props.history_server_url,
+        })
+    }
     componentWillReceiveProps(nextProps){
         const errorMessage = nextProps.error && nextProps.error.toString()
-        console.log(errorMessage)
         this.setState({
             error:errorMessage
         }) 
     }
     renderMessage = () =>{
+        let message = null;
         if(this.state.error !== ''){
-            return <div className={`${Styles.alert_box} alert alert-danger`} role="alert">
+             message=(<div className={`${Styles.alert_box} alert alert-danger`} role="alert">
                         <strong>{this.state.error}</strong> 
-                    </div>
+                    </div>)
+            return message
         }
-        if(this.props.url &&  this.props.url === this.state.url ){
-            return <div className={`${Styles.alert_box} alert alert-success`}>
-                    <strong>Connected! </strong> Now you can click <Link to="/alerts">alerts</Link> to all alerts status.
-                   </div>
+        if(this.props.alertmanager_url &&  
+           this.props.history_server_url && 
+           this.props.history_server_url === this.state.history_server_url && 
+           this.props.alertmanager_url === this.state.alertmanager_url ){
+             message=(<div className={`${Styles.alert_box} alert alert-success`}>
+                    <strong>Both Servers Connected! </strong> Now you can click <Link to="/alerts">alerts</Link> to all alerts status.
+                   </div>)
+        }else if(!this.props.alertmanager_url){
+             message=(<div className={`${Styles.alert_box} alert alert-danger`}>
+                    <strong>AlertManager Not Connected! </strong> You must input Alertmanager url and connect first
+                   </div>)
+        }else if(!this.props.history_server_url){
+            message=(<div className={`${Styles.alert_box} alert alert-danger`}>
+                    <strong>History Server Not Connected! </strong> You can't search for history. Please input history server url and connect
+                   </div>)
         }
-        return null
+        return message
     }
     render () {
         return (
@@ -48,7 +77,9 @@ class EnterPanel extends Component {
                     <div className="form-group row">
                         <div className="col-12">
                             <p className={Styles.small}><FormattedMessage id="enter.input_info_helper"/></p>
-                            <input value={this.state.url} onChange={(e)=>this.setState({url:e.target.value,error:""})}className="form-control" placeholder="" type="text" id="url-input"/>
+                            <input value={this.state.alertmanager_url} onChange={(e)=>this.setState({alertmanager_url:e.target.value,error:""})}className="form-control" placeholder="" type="text"/>
+                            <p className={Styles.small}><FormattedMessage id="enter.input_history_helper"/></p>
+                            <input value={this.state.history_server_url} onChange={(e)=>this.setState({history_server_url:e.target.value,error:""})}className="form-control" placeholder="" type="text"/>
                             <button onClick={this.onHandleEnter}
                                     disabled={this.props.loading} 
                                     className={`${Styles.btn} btn btn-info`}>
@@ -65,13 +96,17 @@ const mapStateToProps = (state) => {
     return {
         loading: state.global.loading,
         error:state.global.error,
-        url: state.global.apiUrl,
+        alertmanager_url: state.global.apiUrl,
+        history_server_url: state.global.historyUrl,
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        testAlertManagerURL: (url) => {
-            dispatch(testAlertManagerURL(url))
+        connectAlertManagerURL: (url) => {
+            dispatch(connectAlertManagerURL(url))
+        },
+        connectHistoryServerURL:(url)=>{
+            dispatch(connectHistoryServerURL(url));
         }
     }
 }

@@ -76,12 +76,16 @@ const deleteSilenceWithID = (id) =>{
     });
 }
 
-const testAlertManagerURL = (url) =>{
+const connectAlertManagerURL = (url) =>{
     return axios.get(`${url}/status`,{
         headers:{
             'Accept':"application/json"
         }
     });
+}
+
+const connectHistoryServerURL = (url) =>{
+    return axios.get(`${url}`);
 }
 export default {
     fetchAlert,
@@ -91,5 +95,6 @@ export default {
     fetchSilenceWithID,
     postNewSilence,
     deleteSilenceWithID,
-    testAlertManagerURL
+    connectAlertManagerURL,
+    connectHistoryServerURL
 }

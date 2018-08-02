@@ -1,6 +1,13 @@
 import React from 'react';
 import { FormattedRelative } from 'react-intl'
 
+export const isURL = (url)=>{
+    if(url && /^(http|https):\/\/[^ "]+$/.test(url)){
+        return true
+    }
+    return false
+}
+
 export const getTimeFromNow = (time) =>{
     return <FormattedRelative value={new Date(time)}/>
 }

@@ -1,27 +1,48 @@
 import * as Types from './const';
 
-export const loadAPIURLFromStore = (url)=>{
+export const loadAPIURLFromStore = (apiUrl,historyUrl)=>{
     return {
-        type:Types.LOAD_API_URL_FROM_STORAGE
+        type:Types.LOAD_API_URL_FROM_STORAGE,
+        payload: {apiUrl,historyUrl}
     }
 }
 
-export const testAlertManagerURL = (url) =>{
+export const connectAlertManagerURL = (url) =>{
     return {
-        type: Types.TEST_ALERTMANAGER_URL,
+        type: Types.CONNECT_ALERTMANAGER_URL,
         payload: url
     }
 }
 
-export const testAlertManagerURLSuccess = (status) =>{
+export const connectAlertManagerURLSuccess = (status) =>{
     return {
-        type: Types.TEST_ALERTMANAGER_URL_SUCCESS,
+        type: Types.CONNECT_ALERTMANAGER_URL_SUCCESS,
         payload: status
     }
 }
-export const testAlertManagerURLFail = (error) =>{
+export const connectAlertManagerURLFail = (error) =>{
     return {
-        type: Types.TEST_ALERTMANAGER_URL_FAIL,
+        type: Types.CONNECT_ALERTMANAGER_URL_FAIL,
+        payload: error
+    }
+}
+
+export const connectHistoryServerURL = (url) =>{
+    return {
+        type: Types.CONNECT_HISTORY_SERVER_URL,
+        payload: url
+    }
+}
+
+export const connectHistoryServerURLSuccess = (status) =>{
+    return {
+        type: Types.CONNECT_HISTORY_SERVER_URL_SUCCESS,
+        payload: status
+    }
+}
+export const connectHistoryServerURLFail = (error) =>{
+    return {
+        type: Types.CONNECT_HISTORY_SERVER_URL_FAIL,
         payload: error
     }
 }

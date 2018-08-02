@@ -7,7 +7,8 @@ import { fetchAlertsFromAPI,
          fetchSilencesWithIDFromAPI,
          postNewSilence,
          deleteSilenceWithIDFromAPI,
-         testURL,
+         connectAlertmanagerURLFromAPI,
+         connectHistoryURLFromAPI,
          fetchStatusFromAPI} from './sagas';
 
 function* rootSaga(){
@@ -20,7 +21,8 @@ function* rootSaga(){
         fetchSilencesWithIDFromAPI(),
         postNewSilence(),
         deleteSilenceWithIDFromAPI(),
-        testURL()
+        connectHistoryURLFromAPI(),
+        connectAlertmanagerURLFromAPI()
     ])
 };
 export default rootSaga;

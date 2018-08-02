@@ -3,9 +3,12 @@ export {fetchStatusData,
         fetchStatusDataFail} from './status'
 
 export {saveURLToStorage,        
-        testAlertManagerURL,
-        testAlertManagerURLFail,
-        testAlertManagerURLSuccess,
+        connectAlertManagerURL,
+        connectAlertManagerURLFail,
+        connectAlertManagerURLSuccess,
+        connectHistoryServerURL,
+        connectHistoryServerURLFail,
+        connectHistoryServerURLSuccess,
         loadAPIURLFromStore} from './global'
 
 export {fetchAlerts,

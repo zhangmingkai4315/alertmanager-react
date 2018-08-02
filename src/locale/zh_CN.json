@@ -2,11 +2,13 @@
     "AppName": "AlertManager",
 
     "enter.input_info_helper": "请输入Ａlertmanager的API接口地址.比如: http://127.0.0.1:9093/api/v1",
-    "enter.btn.test":"测试连接",
+    "enter.input_history_helper": "告警历史存储服务器URL,比如:http://127.0.0.1:7986",
+
+    "enter.btn.test": "测试连接",
     "menu.alerts": "实时告警",
     "menu.silences": "屏蔽设置",
     "menu.status": "运行状态",
-    "menu.setting":"配置API",
+    "menu.setting": "配置API",
 
     "alerts.level": "告警级别",
     "alerts.alertname": "告警名称",
@@ -70,7 +72,7 @@
     "status.cluster_name": "集群标识符",
     "status.cluster_status": "状态",
     "status.cluster_peer": "配对状态",
-    "status.api_url":"API接口",
+    "status.api_url": "API接口",
 
     "status.version_information_title": "版本信息",
     "status.version_branch": "分支",

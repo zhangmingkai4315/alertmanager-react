@@ -16,7 +16,8 @@ import { FETCH_ALERTS,
          CHECK_SILENCED,
          POST_NEW_SILENCE,
          DELETE_SILENCE_WITH_ID,
-         TEST_ALERTMANAGER_URL,
+         CONNECT_ALERTMANAGER_URL,
+         CONNECT_HISTORY_SERVER_URL,
          FETCH_SILENCE_WITH_ID} from '../actions/const';
          
 import { fetchAlertsSuccess,
@@ -35,33 +36,57 @@ import { fetchAlertsSuccess,
         deleteSilenceWithIDFail,
         deleteSilenceWithIDSuccess,
         fetchSilenceWithAffectedAlerts,
-        testAlertManagerURLSuccess,
-        testAlertManagerURLFail} from '../actions';
+        connectHistoryServerURLFail,
+        connectHistoryServerURLSuccess,
+        connectAlertManagerURLSuccess,
+        connectAlertManagerURLFail} from '../actions';
 
 
-export function * testURL() {
-    yield takeLatest(TEST_ALERTMANAGER_URL, testAlertManagerURL);
+export function * connectAlertmanagerURLFromAPI() {
+    yield takeLatest(CONNECT_ALERTMANAGER_URL, connectAlertManagerURL);
 }
-export function * testAlertManagerURL(action) {
+
+export function * connectAlertManagerURL(action) {
     try{
-        const {testResult,timeout} = yield race({
-            testResult:call(API.testAlertManagerURL,action.payload),
+        const {connectResult,timeout} = yield race({
+            connectResult:call(API.connectAlertManagerURL,action.payload),
             timeout:call(delay,5000)
         })
-        if(testResult){
-            if (testResult.status &&testResult.status !== 200) {
-                throw new Error(`StatusCode=${testResult.status}`)
+        if(connectResult){
+            if (connectResult.status &&connectResult.status !== 200) {
+                throw new Error(`AlertManager:StatusCode=${connectResult.status}`)
             }
-            yield put(testAlertManagerURLSuccess(action.payload))
+            yield put(connectAlertManagerURLSuccess(action.payload))
         }else if(timeout){
-            yield put(testAlertManagerURLFail("Connection Timeout"))
+            yield put(connectAlertManagerURLFail("Connection Timeout"))
         }
     }catch(error){
-        console.log(error)
-        yield put(testAlertManagerURLFail(error))
+        yield put(connectAlertManagerURLFail(`AlertManager: ${error}`))
     }
 }
 
+export function * connectHistoryURLFromAPI() {
+    yield takeLatest(CONNECT_HISTORY_SERVER_URL, connectHistoryServerURL);
+}
+
+export function * connectHistoryServerURL(action) {
+    try{
+        const {connectResult,timeout} = yield race({
+            connectResult:call(API.connectHistoryServerURL,action.payload),
+            timeout:call(delay,5000)
+        })
+        if(connectResult){
+            if (connectResult.status && connectResult.status !== 200) {
+                throw new Error(`HistoryServer:StatusCode=${connectResult.status}`)
+            }
+            yield put(connectHistoryServerURLSuccess(action.payload))
+        }else if(timeout){
+            yield put(connectHistoryServerURLFail("Connection Timeout"))
+        }
+    }catch(error){
+        yield put(connectHistoryServerURLFail(`HistoryServer: ${error}`))
+    }
+}
 
 export function * fetchAlertsFromAPI() {
     // first get all alerts(inhibited=false,silienced=false)
