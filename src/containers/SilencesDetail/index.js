@@ -89,13 +89,13 @@ class SilencesDetail extends Component {
             <span className={Style.title}><FormattedMessage id="silences.detail.affected_alerts"/></span>
         </p>
         <AlertList
-                    clickTagHandler={()=>{}}
-                    alerts={this.props.alerts}
-                    toggleAlertSeverity={this.props.toggleAlertSeverity}
-                    toggleAlertStartTime={this.props.toggleAlertStartTime}
-                    toggleAlertName={this.props.toggleAlertName}
-                    sort={this.props.sort}
-                />
+            clickTagHandler={()=>{}}
+            alerts={this.props.alerts}
+            toggleAlertSeverity={this.props.toggleAlertSeverity}
+            toggleAlertStartTime={this.props.toggleAlertStartTime}
+            toggleAlertName={this.props.toggleAlertName}
+            sort={this.props.sort}
+            />
       </div>
     )
   }

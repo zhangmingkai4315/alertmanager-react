@@ -18,7 +18,8 @@ import { FETCH_ALERTS,
          DELETE_SILENCE_WITH_ID,
          CONNECT_ALERTMANAGER_URL,
          CONNECT_HISTORY_SERVER_URL,
-         FETCH_SILENCE_WITH_ID} from '../actions/const';
+         FETCH_SILENCE_WITH_ID,
+         SEARCH_HISTORY_ALERTS} from '../actions/const';
          
 import { fetchAlertsSuccess,
         fetchReceiverSuccess,
@@ -39,14 +40,38 @@ import { fetchAlertsSuccess,
         connectHistoryServerURLFail,
         connectHistoryServerURLSuccess,
         connectAlertManagerURLSuccess,
-        connectAlertManagerURLFail} from '../actions';
+        connectAlertManagerURLFail,
+        searchHistoryAlertsSuccess,
+        searchHistoryAlertsFail} from '../actions';
 
+export function *searchHistoryAlertsFromAPI(){
+    yield takeLatest(SEARCH_HISTORY_ALERTS, searchHistoryAlerts)
+}
 
-export function * connectAlertmanagerURLFromAPI() {
+export function *searchHistoryAlerts(action){
+    try{
+        const {results,timeout} = yield race({
+            results:call(API.searchHistoryAlerts,action.payload),
+            timeout:call(delay,5000)
+        })
+        if(results){
+            if (results.status &&results.status !== 200) {
+                throw new Error(`Search History Alerts:StatusCode=${results.status}`)
+            }
+            yield put(searchHistoryAlertsSuccess(action.payload))
+        }else if(timeout){
+            yield put(searchHistoryAlertsFail("Search Timeout"))
+        }
+    }catch(error){
+        yield put(searchHistoryAlertsFail(`Search History Alerts: ${error}`))
+    }    
+}
+
+export function *connectAlertmanagerURLFromAPI() {
     yield takeLatest(CONNECT_ALERTMANAGER_URL, connectAlertManagerURL);
 }
 
-export function * connectAlertManagerURL(action) {
+export function *connectAlertManagerURL(action) {
     try{
         const {connectResult,timeout} = yield race({
             connectResult:call(API.connectAlertManagerURL,action.payload),
@@ -65,11 +90,11 @@ export function * connectAlertManagerURL(action) {
     }
 }
 
-export function * connectHistoryURLFromAPI() {
+export function *connectHistoryURLFromAPI() {
     yield takeLatest(CONNECT_HISTORY_SERVER_URL, connectHistoryServerURL);
 }
 
-export function * connectHistoryServerURL(action) {
+export function *connectHistoryServerURL(action) {
     try{
         const {connectResult,timeout} = yield race({
             connectResult:call(API.connectHistoryServerURL,action.payload),
@@ -88,7 +113,7 @@ export function * connectHistoryServerURL(action) {
     }
 }
 
-export function * fetchAlertsFromAPI() {
+export function *fetchAlertsFromAPI() {
     // first get all alerts(inhibited=false,silienced=false)
     yield takeLatest(FETCH_ALERTS, makeFetchAlerts);
 }
@@ -100,7 +125,7 @@ export function *fetchAlertsUsingSearchBox(){
                         ALERT_ADD_FILTER,
                         ALERT_REMOVE_FILTER], makeFetchAlerts);
 }
-export function * makeFetchAlerts() {
+export function *makeFetchAlerts() {
     try{
         const getSearchFromStore = (state) => state.alerts.search;
         const getFiltersFromStore = (state) => state.alerts.filters;
@@ -117,10 +142,10 @@ export function * makeFetchAlerts() {
     }
 }
 
-export function * fetchReceiverFromAPI() {
+export function *fetchReceiverFromAPI() {
     yield takeLatest(FETCH_RECERVER, makeFetchReceivers);
 }
-export function * makeFetchReceivers() {
+export function *makeFetchReceivers() {
     try{
 
         const receivers = yield call(API.fetchReivers,);
@@ -134,10 +159,10 @@ export function * makeFetchReceivers() {
 }
 
 
-export function * fetchStatusFromAPI(){
+export function *fetchStatusFromAPI(){
     yield takeLatest(FETCH_STATUS_DATA, makeFetchStatus);
 }
-export function * makeFetchStatus() {
+export function *makeFetchStatus() {
     try{
         const status = yield call(API.fetchStatus);
         if (status.status &&status.status !== 200) {
@@ -150,10 +175,10 @@ export function * makeFetchStatus() {
 }
 
 
-export function * fetchSilencesFromAPI() {
+export function *fetchSilencesFromAPI() {
     yield takeLatest(FETCH_SILENCES, makeFetchSilences);
 }
-export function * makeFetchSilences() {
+export function *makeFetchSilences() {
     try{
         const getSearchFromStore = (state) => state.silences.search;
         const getFiltersFromStore = (state) => state.silences.filters;
@@ -171,10 +196,10 @@ export function * makeFetchSilences() {
 }
 
 
-export function * fetchSilencesWithIDFromAPI() {
+export function *fetchSilencesWithIDFromAPI() {
     yield takeLatest(FETCH_SILENCE_WITH_ID, makeFetchSilenceWithID);
 }
-export function * makeFetchSilenceWithID(action) {
+export function *makeFetchSilenceWithID(action) {
     try{
         const silence = yield call(API.fetchSilenceWithID,action.payload);
         if (silence.status &&silence.status !== 200) {
@@ -196,10 +221,10 @@ export function * makeFetchSilenceWithID(action) {
     }
 }
 
-export function * postNewSilence() {
+export function *postNewSilence() {
     yield takeLatest(POST_NEW_SILENCE, makePostNewSilence);
 }
-export function * makePostNewSilence(action) {
+export function *makePostNewSilence(action) {
     try{
         const silence = yield call(API.postNewSilence,action.payload);
         if (silence.status &&silence.status !== 200) {
@@ -213,10 +238,10 @@ export function * makePostNewSilence(action) {
 }
 
 
-export function * deleteSilenceWithIDFromAPI() {
+export function *deleteSilenceWithIDFromAPI() {
     yield takeLatest(DELETE_SILENCE_WITH_ID, makedeleteSilenceWithID);
 }
-export function * makedeleteSilenceWithID(action) {
+export function *makedeleteSilenceWithID(action) {
     try{
         const silence = yield call(API.deleteSilenceWithID,action.payload);
         if (silence.status &&silence.status !== 200) {

@@ -9,10 +9,12 @@ import { fetchAlertsFromAPI,
          deleteSilenceWithIDFromAPI,
          connectAlertmanagerURLFromAPI,
          connectHistoryURLFromAPI,
+         searchHistoryAlertsFromAPI,
          fetchStatusFromAPI} from './sagas';
 
 function* rootSaga(){
     yield all([
+        searchHistoryAlertsFromAPI(),
         fetchAlertsFromAPI(),
         fetchReceiverFromAPI(),
         fetchStatusFromAPI(),

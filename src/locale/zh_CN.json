@@ -9,6 +9,7 @@
     "menu.silences": "屏蔽设置",
     "menu.status": "运行状态",
     "menu.setting": "配置API",
+    "menu.history": "告警历史",
 
     "alerts.level": "告警级别",
     "alerts.alertname": "告警名称",

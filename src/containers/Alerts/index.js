@@ -44,7 +44,6 @@ class Alerts extends Component {
         })
     },500)
     componentWillReceiveProps(nextProps){
-        // const searchTerm = this.props.search.searchTerm
         const newSearchTerm = nextProps.search.searchTerm
         if(newSearchTerm!==this.props.search.searchTerm){
             this.filterWithSearchTerm(newSearchTerm)

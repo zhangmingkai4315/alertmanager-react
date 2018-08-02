@@ -18,6 +18,9 @@ const Header = () => {
                             <NavLink to="/silences" className="nav-link"><FormattedMessage id="menu.silences"/></NavLink>
                         </li>
                         <li className="nav-item">
+                            <NavLink to="/history" className="nav-link"><FormattedMessage id="menu.history"/></NavLink>
+                        </li>
+                        <li className="nav-item">
                             <NavLink to="/status" className="nav-link"><FormattedMessage id="menu.status"/></NavLink>
                         </li>
                         <li className="nav-item">

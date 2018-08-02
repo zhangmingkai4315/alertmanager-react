@@ -36,3 +36,9 @@ export {fetchSilences,
         deleteSilenceWithIDSuccess,
         fetchSilenceWithAffectedAlerts,
         } from './silences';
+
+export {
+        searchHistoryAlerts,
+        searchHistoryAlertsSuccess,
+        searchHistoryAlertsFail,
+} from './historyAlerts';

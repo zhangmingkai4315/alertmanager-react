@@ -27,5 +27,4 @@ if(apiUrl!=='' && historyUrl!==''){
   store.dispatch(loadAPIURLFromStore(apiUrl,historyUrl))
 }
 
-
 export default store;

@@ -87,6 +87,16 @@ const connectAlertManagerURL = (url) =>{
 const connectHistoryServerURL = (url) =>{
     return axios.get(`${url}`);
 }
+
+const searchHistoryAlerts =(search) =>{
+    console.log(search)
+    const url = localStorage.getItem("historyUrl")
+    return axios.post(`${url}/search`,search,{
+        headers:{
+            'Accept':"application/json"
+        }
+    });     
+}
 export default {
     fetchAlert,
     fetchStatus,
@@ -96,5 +106,6 @@ export default {
     postNewSilence,
     deleteSilenceWithID,
     connectAlertManagerURL,
-    connectHistoryServerURL
+    connectHistoryServerURL,
+    searchHistoryAlerts,
 }

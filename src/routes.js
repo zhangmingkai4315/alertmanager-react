@@ -3,6 +3,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Alerts from './containers/Alerts';
+import HistoryPage from './containers/HistoryPage';
 import Silences from './containers/Silences';
 import SilencesDetail from './containers/SilencesDetail'
 import SilencesNew from './containers/SilencesNew';
@@ -16,6 +17,7 @@ const Routes = () =>{
             <Route path="/enter" exact component={Layout({Content:EnterPanel})}/>
             <Route path="/" exact component={Layout({Content:Alerts})}/>
             <Route path="/alerts" exact component={Layout({Content:Alerts})}/>
+            <Route path="/history" exact component={Layout({Content:HistoryPage})}/>
             <Route path="/silences" exact component={Layout({Content:Silences})}/>
             <Route path="/silence/:id" exact component={Layout({Content:SilencesDetail})}/>
             <Route path="/silences/new" exact component={Layout({Content:SilencesNew})}/>

@@ -1,0 +1,16 @@
+.searchbox {
+    margin: 1em;
+}
+
+.searchbar {
+    margin: .5em 0;
+}
+
+.info {
+    color: rgba(0, 0, 0, .5);
+    font-size: small;
+}
+
+.arrow {
+    padding-top: .5em;
+}
