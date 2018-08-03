@@ -77,6 +77,7 @@ class HistoryPage extends Component {
                 </div>
                 <div className="col-md-12">
                     <AlertList
+                        showDateFromNow={false}
                         loading={this.props.loading}
                         clickTagHandler={()=>{}}
                         alerts={this.props.alerts}

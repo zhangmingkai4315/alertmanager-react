@@ -4,17 +4,17 @@ import { FormattedMessage } from 'react-intl'
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import Style from './style.css';
-import {getAlertClass, getTagListFromLables,getTimeFromNow} from '../../lib/utils';
+import {getAlertClass, getTagListFromLables,getTimeFromNow,getFormatTime} from '../../lib/utils';
 
 
 
-const AlertItem = ({alert,clickTagHandler}) => {
+const AlertItem = ({alert,clickTagHandler,showDateFromNow}) => {
     const alertname = alert.labels.alertname;
     const description = alert.annotations.description;
     const tagList = getTagListFromLables(alert.labels,clickTagHandler);
     const severity=alert.labels.severity;
-    const startAt = getTimeFromNow(alert.startsAt);
-    const endsAt = getTimeFromNow(alert.endsAt);
+    const startAt = showDateFromNow? getTimeFromNow(alert.startsAt):getFormatTime(alert.startsAt);
+    const endsAt = showDateFromNow? getTimeFromNow(alert.endsAt):getFormatTime(alert.endsAt);
     let linkInfo = [];
     
     if(alert.generatorURL){

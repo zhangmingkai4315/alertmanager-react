@@ -58,7 +58,16 @@ export function *searchHistoryAlerts(action){
             if (results.status &&results.status !== 200) {
                 throw new Error(`Search History Alerts:StatusCode=${results.status}`)
             }
-            yield put(searchHistoryAlertsSuccess(action.payload))
+            // console.log(results)
+            if(!results.data){
+                yield put(searchHistoryAlertsFail("Response data decode fail"))
+                return
+            }
+            if(!results.data.data || results.data.data.length===0){
+                yield put(searchHistoryAlertsFail("Not Found"))
+                return
+            }
+            yield put(searchHistoryAlertsSuccess(results.data.data))
         }else if(timeout){
             yield put(searchHistoryAlertsFail("Search Timeout"))
         }

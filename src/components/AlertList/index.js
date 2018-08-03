@@ -27,12 +27,16 @@ const AlertList = (props) => {
                 </tr>
                 </thead>
                 <tbody>
-                {props.alerts.map((alert,i)=><AlertItem alert={alert} clickTagHandler={props.clickTagHandler} key={alert.fingerprint}/>)}
+                {props.alerts.map((alert,i)=><AlertItem showDateFromNow={props.showDateFromNow} alert={alert} clickTagHandler={props.clickTagHandler} key={alert.fingerprint}/>)}
                 </tbody>
             </table>
             {props.loading?<Loading/>:null}
         </div>
     )
+}
+
+AlertList.defaultProps = {
+    showDateFromNow:true
 }
 AlertList.propTypes = {
     toggleAlertSeverity: PropTypes.func,
@@ -40,6 +44,7 @@ AlertList.propTypes = {
     toggleAlertStartTime: PropTypes.func,
     clickTagHandler: PropTypes.func,
     sort:PropTypes.object,
+    showDateFromNow: PropTypes.bool,
     alerts: PropTypes.array.isRequired
 }
 

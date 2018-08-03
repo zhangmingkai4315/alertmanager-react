@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedRelative } from 'react-intl'
+import { FormattedRelative,FormattedDate,FormattedTime } from 'react-intl'
 
 export const isURL = (url)=>{
     if(url && /^(http|https):\/\/[^ "]+$/.test(url)){
@@ -10,6 +10,12 @@ export const isURL = (url)=>{
 
 export const getTimeFromNow = (time) =>{
     return <FormattedRelative value={new Date(time)}/>
+}
+
+export const getFormatTime = (time) =>{
+    return  (<div><FormattedDate month='2-digit' day='2-digit' value={new Date(time)} />
+            <FormattedTime 
+                  value={new Date(time)} /></div>)
 }
 export const getAlertClass = (severity) => {
     try {
